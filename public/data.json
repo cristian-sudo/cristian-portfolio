@@ -1,0 +1,93 @@
+{
+  "languages": ["EN", "RO"],
+  "content": {
+    "EN": {
+      "navLinks": [
+        { "href": "/", "label": "*#*home" },
+        { "href": "/projects", "label": "*#*works" },
+        { "href": "/about", "label": "*#*about-me" },
+        { "href": "/contact", "label": "*#*contacts" }
+      ],
+      "heroSection": {
+        "title": "*Elevate* Your *Online* Presence",
+        "description": "Build stunning *websites* with modern tools and bring your vision to life.",
+        "buttonText": "Get *Started*",
+        "buttonLink": "/contact",
+        "imageSrc": "/hero-image.png",
+        "currentProject": "Currently working on *Portfolio*"
+      },
+      "quote": {
+        "text": "With great *power* comes great electricity bill",
+        "author": "Dr. Who"
+      },
+      "projects": [
+        {
+          "title": "Ceres Website",
+          "description": "Ceres.org website rebuild",
+          "tags": "Laravel Livewire Statamic TailwindCSS",
+          "image": "/hero-image.png"
+        },
+        {
+          "title": "Roadmap360",
+          "description": "Assessment tool",
+          "tags": "Laravel",
+          "image": "/hero-image.png"
+        },
+        {
+          "title": "Ragile",
+          "description": "Get answers to your kahoot quiz",
+          "tags": "CSS Express Node.js",
+          "image": "/hero-image.png"
+        }
+      ],
+      "labels": {
+        "projects": "Projects",
+        "viewAll": "View all"
+      }
+    },
+    "RO": {
+      "navLinks": [
+        { "href": "/", "label": "*#*acasă" },
+        { "href": "/projects", "label": "*#*lucrări" },
+        { "href": "/about", "label": "*#*despre-mine" },
+        { "href": "/contact", "label": "*#*contacte" }
+      ],
+      "heroSection": {
+        "title": "*Îmbunătățește* Prezența *Online*",
+        "description": "Construiește *site-uri web* uimitoare cu instrumente moderne și adu-ți viziunea la viață.",
+        "buttonText": "Începe *Acum*",
+        "buttonLink": "/contact",
+        "imageSrc": "/hero-image.png",
+        "currentProject": "Lucrez în prezent la *Portofoliu*"
+      },
+      "quote": {
+        "text": "Cu mare *putere* vine o factură mare la electricitate",
+        "author": "Dr. Who"
+      },
+      "projects": [
+        {
+          "title": "Website Ceres",
+          "description": "Reconstrucția site-ului Ceres.org",
+          "tags": "Laravel Livewire Statamic TailwindCSS",
+          "image": "/hero-image.png"
+        },
+        {
+          "title": "Roadmap360",
+          "description": "Instrument de evaluare",
+          "tags": "Laravel",
+          "image": "/hero-image.png"
+        },
+        {
+          "title": "Ragile",
+          "description": "Obține răspunsuri la quiz-ul tău kahoot",
+          "tags": "CSS Express Node.js",
+          "image": "/hero-image.png"
+        }
+      ],
+      "labels": {
+        "projects": "Proiecte",
+        "viewAll": "Vezi toate"
+      }
+    }
+  }
+}
