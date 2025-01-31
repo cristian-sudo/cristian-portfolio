@@ -3,6 +3,7 @@ import Quote from "@/app/components/Quote";
 import ProjectSection from "@/app/components/ProjectSection";
 import SkillsSection from "@/app/components/SkillsSection";
 import AboutMeSection from "@/app/components/AboutMeSection";
+import ContactSection from "@/app/components/ContactSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         <ProjectSection/>
         <SkillsSection />
         <AboutMeSection />
+        <ContactSection />
       </>
   );
 }

@@ -55,7 +55,7 @@ const HeroBanner: React.FC = () => {
                         className="w-full max-w-sm rounded-lg shadow-lg"
                     />
                     <span className='my-3 border w-fit p-1 flex flex-row items-center gap-3'>
-            <span className="w-5 h-5 bg-purple-600 inline-block"></span>
+            <span className="w-5 h-5 bg-accent inline-block"></span>
             <p>{highlightText(heroContent.currentProject)}</p>
           </span>
                 </div>
