@@ -11,6 +11,14 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "#282C33",
+        accent: "#C778DD",
+        text: "#ABB2BF",
+        white: "#FFFFFF",
+      },
+      fontFamily: {
+        sans: ["var(--font-fira-sans)", "sans-serif"],
+        mono: ["var(--font-fira-mono)", "monospace"],
       },
     },
   },
