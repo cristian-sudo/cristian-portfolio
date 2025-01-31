@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import "./globals.css";
 import SocialMediaSidebar from "@/app/components/SocialMediaSidebar";
 import {LanguageProvider} from "@/app/context/LanguageContext";
+import Footer from "@/app/components/Footer";
 
 
 const firaSans = Fira_Sans({
@@ -38,8 +39,9 @@ export default function RootLayout({
       >
       <LanguageProvider>
       <SocialMediaSidebar />
-      <Navbar />
-        {children}
+          <Navbar />
+          {children}
+          <Footer />
         </LanguageProvider>
       </body>
     </html>

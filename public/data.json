@@ -22,7 +22,7 @@
       "aboutSection": {
         "buttonText": "Find more about me",
         "buttonLink": "/about",
-        "description": "I'm a *web developer* with a passion for creating beautiful and functional websites. I have experience with a variety of tools and technologies, and I'm always looking to learn more.I'm a *web developer* with a passion for creating beautiful and functional websites. I have experience with a variety of tools and technologies, and I'm always looking to learn more.",
+        "description": "I'm a *web developer* with a passion for creating beautiful and functional websites. I have experience with a variety of tools and technologies, and I'm always looking to learn more.",
         "imageSrc": "/hero-image.png",
         "label": "About Me"
       },
@@ -61,6 +61,22 @@
       "labels": {
         "projects": "Projects",
         "viewAll": "View all"
+      },
+      "contactSection": {
+        "label": "Contacts",
+        "description": "I’m interested in freelance opportunities. However, if you have other requests or questions, don’t hesitate to contact me.",
+        "discord": "Cr1st",
+        "email": "cplop95@gmail.com"
+      },
+      "footer": {
+        "name": "Cristian Plop",
+        "email": "cplop95@gmail.com",
+        "description": "Web developer",
+        "copyright": "© Copyright 2025 Cristian Plop",
+        "media": [
+          { "icon": "GitHubIcon", "link": "https://github.com/username" },
+          { "icon": "DiscordIcon", "link": "https://discord.com/username" }
+        ]
       }
     },
     "RO": {
@@ -70,6 +86,24 @@
         { "href": "/about", "label": "*#*despre-mine" },
         { "href": "/contact", "label": "*#*contacte" }
       ],
+      "skills": {
+        "image": "/hero-image.png",
+        "label": "Abilități",
+        "categories": {
+          "Limbaje": ["TypeScript", "Lua", "Python", "JavaScript"],
+          "Baze de date": ["SQLite", "PostgreSQL", "Mongo"],
+          "Instrumente": ["VSCode", "Neovim", "Linux", "Figma", "XFCE", "Arch", "Git", "Font Awesome"],
+          "Altele": ["HTML", "CSS", "EJS", "SCSS", "REST", "Jinja"],
+          "Framework-uri": ["React", "Vue", "Dinsnake", "Discord.js", "Flask", "Express.js"]
+        }
+      },
+      "aboutSection": {
+        "buttonText": "Află mai multe despre mine",
+        "buttonLink": "/about",
+        "description": "Sunt un *dezvoltator web* pasionat de crearea de site-uri frumoase și funcționale. Am experiență cu o varietate de instrumente și tehnologii și sunt mereu dornic să învăț mai mult.",
+        "imageSrc": "/hero-image.png",
+        "label": "Despre mine"
+      },
       "heroSection": {
         "title": "*Îmbunătățește* Prezența *Online*",
         "description": "Construiește *site-uri web* uimitoare cu instrumente moderne și adu-ți viziunea la viață.",
@@ -105,6 +139,22 @@
       "labels": {
         "projects": "Proiecte",
         "viewAll": "Vezi toate"
+      },
+      "contactSection": {
+        "label": "Contacte",
+        "description": "Sunt interesat de oportunități de freelancing. Totuși, dacă aveți alte cereri sau întrebări, nu ezitați să mă contactați.",
+        "discord": "Cr1st",
+        "email": "cplop95@gmail.com"
+      },
+      "footer": {
+        "name": "Cristian Plop",
+        "email": "cplop95@gmail.com",
+        "description": "Dezvoltator web",
+        "copyright": "© Copyright 2025 Cristian Plop",
+        "media": [
+          { "icon": "GitHubIcon", "link": "https://github.com/username" },
+          { "icon": "DiscordIcon", "link": "https://discord.com/username" }
+        ]
       }
     }
   }
