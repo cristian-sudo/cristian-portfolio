@@ -10,7 +10,11 @@ type Project = {
     image: string;
 };
 
-const ProjectSection: React.FC = () => {
+type ProjectSectionProps = {
+    showAll?: boolean;
+};
+
+const ProjectSection: React.FC<ProjectSectionProps> = ({ showAll = false }) => {
     const { language } = useLanguage();
     const [projects, setProjects] = useState<Project[]>([]);
     const [labels, setLabels] = useState<{ projects: string; viewAll: string }>({ projects: '', viewAll: '' });
@@ -27,12 +31,14 @@ const ProjectSection: React.FC = () => {
     return (
         <div className="text-white p-8 py-16 my-6">
             <div className="container mx-auto px-6 md:px-12">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-accent">#{labels.projects}</h2>
-                    <a href="#" className="text-white">{labels.viewAll} &rarr;</a>
-                </div>
+                {!showAll && (
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold text-accent">#{labels.projects}</h2>
+                        <a href="#" className="text-white">{labels.viewAll} &rarr;</a>
+                    </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {projects.slice(0, 3).map((project, index) => (
+                    {projects.slice(0, showAll ? projects.length : 3).map((project, index) => (
                         <ProjectCard
                             key={index}
                             title={project.title}

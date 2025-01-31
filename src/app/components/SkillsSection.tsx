@@ -10,7 +10,11 @@ type Skills = {
     };
 };
 
-const SkillsSection: React.FC = () => {
+type SkillsSectionProps = {
+    showImage?: boolean;
+};
+
+const SkillsSection: React.FC<SkillsSectionProps> = ({ showImage = true }) => {
     const { language } = useLanguage();
     const [skills, setSkills] = useState<Skills | null>(null);
 
@@ -36,11 +40,13 @@ const SkillsSection: React.FC = () => {
             <div className="container mx-auto px-6 md:px-12">
                 <h2 className="text-2xl font-bold text-accent mb-6">#{skills.label}</h2>
                 <div className="flex flex-col md:flex-row">
-                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
-                        <img src={skills.image} alt="Skills" className="max-w-full" />
-                    </div>
-                    <div className="w-full md:w-2/3">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+                    {showImage && (
+                        <div className="w-full md:w-1/3 mb-6 md:mb-0">
+                            <img src={skills.image} alt="Skills" className="max-w-full" />
+                        </div>
+                    )}
+                    <div className={`w-full ${showImage ? 'md:w-2/3' : ''}`}>
+                        <div className={`grid grid-cols-1 ${showImage ? 'md:grid-cols-3' : 'md:grid-cols-4'} gap-6 p-6`}>
                             {Object.entries(skills.categories).map(([category, items], index) => (
                                 <div key={index} className="border p-4">
                                     <h3 className="font-bold mb-2">{category}</h3>
