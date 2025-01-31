@@ -8,6 +8,24 @@
         { "href": "/about", "label": "*#*about-me" },
         { "href": "/contact", "label": "*#*contacts" }
       ],
+      "skills": {
+        "image": "/hero-image.png",
+        "label": "Skills",
+        "categories": {
+          "Languages": ["TypeScript", "Lua", "Python", "JavaScript"],
+          "Databases": ["SQLite", "PostgreSQL", "Mongo"],
+          "Tools": ["VSCode", "Neovim", "Linux", "Figma", "XFCE", "Arch", "Git", "Font Awesome"],
+          "Other": ["HTML", "CSS", "EJS", "SCSS", "REST", "Jinja"],
+          "Frameworks": ["React", "Vue", "Dinsnake", "Discord.js", "Flask", "Express.js"]
+        }
+      },
+      "aboutSection": {
+        "buttonText": "Find more about me",
+        "buttonLink": "/about",
+        "description": "I'm a *web developer* with a passion for creating beautiful and functional websites. I have experience with a variety of tools and technologies, and I'm always looking to learn more.I'm a *web developer* with a passion for creating beautiful and functional websites. I have experience with a variety of tools and technologies, and I'm always looking to learn more.",
+        "imageSrc": "/hero-image.png",
+        "label": "About Me"
+      },
       "heroSection": {
         "title": "*Elevate* Your *Online* Presence",
         "description": "Build stunning *websites* with modern tools and bring your vision to life.",
