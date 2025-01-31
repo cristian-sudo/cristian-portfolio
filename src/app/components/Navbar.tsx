@@ -1,19 +1,22 @@
 "use client";
-
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { highlightText } from '../utils/textUtils';
+
+type NavLink = {
+    href: string;
+    label: string;
+};
 
 const Navbar: React.FC = () => {
-    const [language, setLanguage] = useState('EN');
+    const { language, setLanguage } = useLanguage(); // Use the language context
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [hasScrolled, setHasScrolled] = useState(false);
-
-    const handleLanguageChange = (newLanguage: string) => {
-        setLanguage(newLanguage);
-        setDropdownOpen(false);
-    };
+    const [navLinks, setNavLinks] = useState<NavLink[]>([]);
+    const [languages, setLanguages] = useState<string[]>([]);
 
     const controlNavbar = () => {
         if (typeof window !== 'undefined') {
@@ -36,12 +39,20 @@ const Navbar: React.FC = () => {
         if (typeof window !== 'undefined') {
             window.addEventListener('scroll', controlNavbar);
 
-            // Clean up the event listener on component unmount
             return () => {
                 window.removeEventListener('scroll', controlNavbar);
             };
         }
     }, [lastScrollY]);
+
+    useEffect(() => {
+        fetch('/data.json')
+            .then(response => response.json())
+            .then(data => {
+                setLanguages(data.languages);
+                setNavLinks(data.content[language].navLinks);
+            });
+    }, [language]);
 
     return (
         <nav
@@ -57,18 +68,11 @@ const Navbar: React.FC = () => {
                     </Link>
                 </div>
                 <div className="space-x-6 flex items-center">
-                    <Link href="/" className="text-white">
-                        <span className="text-accent">#</span>home
-                    </Link>
-                    <Link href="/projects" className="text-white">
-                        <span className="text-accent">#</span>works
-                    </Link>
-                    <Link href="/contact" className="text-white">
-                        <span className="text-accent">#</span>about-me
-                    </Link>
-                    <Link href="/contact" className="text-white">
-                        <span className="text-accent">#</span>contacts
-                    </Link>
+                    {navLinks.map((link) => (
+                        <Link key={link.href} href={link.href} className="text-white">
+                            {highlightText(link.label)}
+                        </Link>
+                    ))}
                     <div className="relative">
                         <button
                             onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -78,10 +82,13 @@ const Navbar: React.FC = () => {
                         </button>
                         {dropdownOpen && (
                             <ul className="absolute right-0 mt-2 w-24 bg-accent rounded shadow-lg">
-                                {['EN', 'RU', 'RO', 'IT'].map((lang) => (
+                                {languages.map((lang) => (
                                     <li
                                         key={lang}
-                                        onClick={() => handleLanguageChange(lang)}
+                                        onClick={() => {
+                                            setLanguage(lang);
+                                            setDropdownOpen(false);
+                                        }}
                                         className="px-4 py-2 text-white hover:bg-gray-700 cursor-pointer"
                                     >
                                         {lang}

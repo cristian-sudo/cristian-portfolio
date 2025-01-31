@@ -3,6 +3,7 @@ import { Fira_Sans, Fira_Mono  } from "next/font/google";
 import Navbar from './components/Navbar';
 import "./globals.css";
 import SocialMediaSidebar from "@/app/components/SocialMediaSidebar";
+import {LanguageProvider} from "@/app/context/LanguageContext";
 
 
 const firaSans = Fira_Sans({
@@ -35,9 +36,11 @@ export default function RootLayout({
       <body
         className={`${firaSans.variable} ${firaMono.variable} antialiased `}
       >
+      <LanguageProvider>
       <SocialMediaSidebar />
       <Navbar />
         {children}
+        </LanguageProvider>
       </body>
     </html>
   );
