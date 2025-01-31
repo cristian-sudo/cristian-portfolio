@@ -2,10 +2,19 @@
   "languages": ["EN", "RO"],
   "content": {
     "EN": {
+      "myFunFacts":{
+        "title": "*#Fun Facts*",
+        "facts": [
+          "I'm a *web developer* with a passion",
+          "I have experience with a variety of tools and technologies, and I'm always looking to learn more.",
+          "I'm a *web developer* with a passion for creating beautiful and functional websites.",
+          "I have experience with a variety of tools and technologies, and I'm always looking to learn more."
+        ]
+      },
       "navLinks": [
         { "href": "/", "label": "*#*home" },
-        { "href": "/projects", "label": "*#*works" },
-        { "href": "/about", "label": "*#*about-me" },
+        { "href": "/projects", "label": "*#*projects" },
+        { "href": "/about-me", "label": "*#*about-me" },
         { "href": "/contact", "label": "*#*contacts" }
       ],
       "skills": {
@@ -24,7 +33,8 @@
         "buttonLink": "/about",
         "description": "I'm a *web developer* with a passion for creating beautiful and functional websites. I have experience with a variety of tools and technologies, and I'm always looking to learn more.",
         "imageSrc": "/hero-image.png",
-        "label": "About Me"
+        "label": "About Me",
+        "longDescription": "I'm a *web developer* with a passion for creating beautiful and functional websites. I have experience with a variety of tools and technologies, and I'm always looking to learn more. I'm a *web developer* with a passion for creating beautiful and functional websites. I have experience with a variety of tools and technologies, and I'm always looking to learn more."
       },
       "heroSection": {
         "title": "*Elevate* Your *Online* Presence",
@@ -82,8 +92,8 @@
     "RO": {
       "navLinks": [
         { "href": "/", "label": "*#*acasă" },
-        { "href": "/projects", "label": "*#*lucrări" },
-        { "href": "/about", "label": "*#*despre-mine" },
+        { "href": "/projects", "label": "*#*proiecte" },
+        { "href": "/about-me", "label": "*#*despre-mine" },
         { "href": "/contact", "label": "*#*contacte" }
       ],
       "skills": {
