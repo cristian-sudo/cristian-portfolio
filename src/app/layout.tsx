@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fira_Sans, Fira_Mono  } from "next/font/google";
 import Navbar from './components/Navbar';
 import "./globals.css";
+import SocialMediaSidebar from "@/app/components/SocialMediaSidebar";
 
 
 const firaSans = Fira_Sans({
@@ -32,8 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${firaSans.variable} ${firaMono.variable} antialiased bg-primary`}
+        className={`${firaSans.variable} ${firaMono.variable} antialiased `}
       >
+      <SocialMediaSidebar />
       <Navbar />
         {children}
       </body>

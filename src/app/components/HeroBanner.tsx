@@ -1,6 +1,6 @@
 const HeroBanner: React.FC = () => {
     return (
-        <div className="text-white py-16">
+        <div className="text-white py-16 my-6">
             <div className="container mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
                 {/* Left Side: Text Content */}
                 <div className="md:w-1/2 text-center md:text-left flex gap-3 flex-col">
