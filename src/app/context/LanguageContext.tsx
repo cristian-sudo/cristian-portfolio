@@ -1,17 +1,19 @@
-"use client"
+"use client";
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Language } from '../types';
 
 type LanguageContextType = {
-    language: string;
-    setLanguage: (language: string) => void;
+    language: Language;
+    setLanguage: (language: Language) => void;
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [language, setLanguage] = useState<string>(() => {
+    const [language, setLanguage] = useState<Language>(() => {
         if (typeof window !== 'undefined') {
-            return localStorage.getItem('language') || 'EN';
+            const storedLanguage = localStorage.getItem('language');
+            return (storedLanguage === 'EN' || storedLanguage === 'RO') ? storedLanguage : 'EN';
         }
         return 'EN';
     });

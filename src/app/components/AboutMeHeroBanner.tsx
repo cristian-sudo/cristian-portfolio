@@ -1,24 +1,14 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+"use client";
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { highlightText } from '../utils/textUtils';
-
-type AboutContent = {
-    longDescription: string;
-    imageSrc: string;
-};
+import data from '../../../public/data.json';
+import { DataStructure, AboutSection } from '../types';
 
 const AboutMeHeroBanner: React.FC = () => {
     const { language } = useLanguage();
-    const [aboutContent, setAboutContent] = useState<AboutContent | null>(null);
-
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                setAboutContent(data.content[language].aboutSection);
-            });
-    }, [language]);
+    const contentData: DataStructure = data as DataStructure;
+    const aboutContent: AboutSection | undefined = contentData.content[language]?.aboutSection;
 
     if (!aboutContent) {
         return null;
@@ -30,7 +20,7 @@ const AboutMeHeroBanner: React.FC = () => {
                 <div className="flex flex-col md:flex-row items-center">
                     <div className="md:w-1/2 text-center md:text-left flex gap-3 flex-col">
                         <p className="text-lg text-gray-300 mb-6">
-                            {highlightText(aboutContent.longDescription)}
+                            {highlightText(aboutContent.longDescription || '')}
                         </p>
                     </div>
 

@@ -2,21 +2,20 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
-import { highlightText } from '../utils/textUtils';
-
-type NavLink = {
-    href: string;
-    label: string;
-};
+import ShiftTabs from "@/app/components/animata/container/shift-tabs";
+import data from '../../../public/data.json';
+import { DataStructure } from '../types';
 
 const Navbar: React.FC = () => {
-    const { language, setLanguage } = useLanguage(); // Use the language context
+    const { language, setLanguage } = useLanguage();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [hasScrolled, setHasScrolled] = useState(false);
-    const [navLinks, setNavLinks] = useState<NavLink[]>([]);
-    const [languages, setLanguages] = useState<string[]>([]);
+
+    const jsonData = data as DataStructure;
+    const navLinks = jsonData.content[language].navLinks;
+    const languages = jsonData.languages;
 
     const controlNavbar = () => {
         if (typeof window !== 'undefined') {
@@ -45,15 +44,6 @@ const Navbar: React.FC = () => {
         }
     }, [lastScrollY]);
 
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                setLanguages(data.languages);
-                setNavLinks(data.content[language].navLinks);
-            });
-    }, [language]);
-
     return (
         <nav
             className={`fixed py-2 top-0 left-0 right-0 transition-transform duration-300 ${
@@ -61,18 +51,15 @@ const Navbar: React.FC = () => {
             } ${hasScrolled ? 'bg-gray-950' : 'bg-transparent'} z-50`}
         >
             <div className="container mx-auto py-4 flex justify-between items-center">
-                <div className="text-lg font-bold">
+                <div className="text-3xl font-bold">
                     <Link href="/">
                         <span className="text-accent">$</span>
                         cristian_plop
                     </Link>
                 </div>
+
                 <div className="space-x-6 flex items-center">
-                    {navLinks.map((link) => (
-                        <Link key={link.href} href={link.href} className="text-white">
-                            {highlightText(link.label)}
-                        </Link>
-                    ))}
+                    <ShiftTabs items={navLinks} />
                     <div className="relative">
                         <button
                             onClick={() => setDropdownOpen(!dropdownOpen)}

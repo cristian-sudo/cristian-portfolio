@@ -1,24 +1,15 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+"use client";
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { highlightText } from '../utils/textUtils';
-
-type QuoteContent = {
-    text: string;
-    author: string;
-};
+import data from '../../../public/data.json';
+import { DataStructure, Quote } from '../types';
 
 const QuoteBox: React.FC = () => {
     const { language } = useLanguage();
-    const [quoteContent, setQuoteContent] = useState<QuoteContent | null>(null);
 
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                setQuoteContent(data.content[language].quote);
-            });
-    }, [language]);
+    const jsonData = data as DataStructure;
+    const quoteContent: Quote = jsonData.content[language].quote;
 
     if (!quoteContent) {
         return null;
@@ -31,16 +22,16 @@ const QuoteBox: React.FC = () => {
                     &ldquo;
                 </div>
                 <span>
-          {highlightText(quoteContent.text)}
-        </span>
+                    {highlightText(quoteContent.text)}
+                </span>
                 <div className="absolute bottom-[-9px] font-bold right-6 text-5xl bg-black w-8 h-3 flex justify-center">
                     &rdquo;
                 </div>
             </div>
             <div className="text-right">
-        <span className="inline-block border p-4">
-          &mdash; {quoteContent.author}
-        </span>
+                <span className="inline-block border p-4">
+                    &mdash; {quoteContent.author}
+                </span>
             </div>
         </div>
     );

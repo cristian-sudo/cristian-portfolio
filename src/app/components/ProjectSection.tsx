@@ -1,14 +1,11 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import ProjectCard from './ProjectCard';
-
-type Project = {
-    title: string;
-    description: string;
-    tags: string;
-    image: string;
-};
+import { highlightText } from "@/app/utils/textUtils";
+import AnimatedBorderTrail from "@/app/components/animata/container/animated-border-trail";
+import data from '../../../public/data.json';
+import { DataStructure } from '../types';
 
 type ProjectSectionProps = {
     showAll?: boolean;
@@ -16,17 +13,9 @@ type ProjectSectionProps = {
 
 const ProjectSection: React.FC<ProjectSectionProps> = ({ showAll = false }) => {
     const { language } = useLanguage();
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [labels, setLabels] = useState<{ projects: string; viewAll: string }>({ projects: '', viewAll: '' });
-
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                setProjects(data.content[language].projects);
-                setLabels(data.content[language].labels);
-            });
-    }, [language]);
+    const jsonData = data as DataStructure;
+    const projects = jsonData.content[language].projects;
+    const labels = jsonData.content[language].labels;
 
     return (
         <div className="text-white p-8 py-16 my-6">
@@ -34,7 +23,15 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ showAll = false }) => {
                 {!showAll && (
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-accent">#{labels.projects}</h2>
-                        <a href="#" className="text-white">{labels.viewAll} &rarr;</a>
+                        <AnimatedBorderTrail
+                            className=" bg-zinc-600 hover:bg-zinc-500"
+                            contentClassName=" bg-zinc-800"
+                            trailColor="purple"
+                        >
+                            <button className=" px-3 py-1 text-xl text-white">
+                                {highlightText(labels.viewAll)} →
+                            </button>
+                        </AnimatedBorderTrail>
                     </div>
                 )}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
