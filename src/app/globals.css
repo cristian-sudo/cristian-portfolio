@@ -28,3 +28,8 @@ code, pre {
   font-family: var(--font-fira-mono), monospace;
 }
 
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}

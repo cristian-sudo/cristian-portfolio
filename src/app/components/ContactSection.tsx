@@ -1,32 +1,15 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import DiscordIcon from "@/app/components/icons/DiscordIcon";
 import EmailIcon from "@/app/components/icons/EmailIcon";
-
-type ContactInfo = {
-    label: string;
-    description: string;
-    discord: string;
-    email: string;
-};
+import data from '../../../public/data.json';
+import { DataStructure, ContactSection as ContactSectionType } from '../types';
 
 const ContactSection: React.FC = () => {
     const { language } = useLanguage();
-    const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
-
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                if (data.content[language] && data.content[language].contactSection) {
-                    setContactInfo(data.content[language].contactSection);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching contact info:", error);
-            });
-    }, [language]);
+    const contentData: DataStructure = data as DataStructure;
+    const contactInfo: ContactSectionType | undefined = contentData.content[language]?.contactSection;
 
     if (!contactInfo) {
         return <div>Loading...</div>;

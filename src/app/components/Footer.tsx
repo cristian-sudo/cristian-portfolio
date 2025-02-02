@@ -1,33 +1,15 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import GitHubIcon from './icons/GitHubIcon';
 import DiscordIcon from './icons/DiscordIcon';
-
-type FooterData = {
-    name: string;
-    email: string;
-    description: string;
-    copyright: string;
-    media: { icon: string; link: string }[];
-};
+import data from '../../../public/data.json';
+import { Footer as FooterType } from '../types';
 
 const Footer: React.FC = () => {
     const { language } = useLanguage();
-    const [footerData, setFooterData] = useState<FooterData | null>(null);
-
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                if (data.content[language] && data.content[language].footer) {
-                    setFooterData(data.content[language].footer);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching footer data:", error);
-            });
-    }, [language]);
+    const contentData: { content: Record<string, { footer: FooterType }> } = data as any;
+    const footerData: FooterType | undefined = contentData.content[language]?.footer;
 
     if (!footerData) {
         return <div>Loading...</div>;

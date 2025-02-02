@@ -1,14 +1,8 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
-
-type Skills = {
-    image: string;
-    label: string;
-    categories: {
-        [category: string]: string[];
-    };
-};
+import data from '../../../public/data.json';
+import { DataStructure, Skills } from '../types';
 
 type SkillsSectionProps = {
     showImage?: boolean;
@@ -16,20 +10,8 @@ type SkillsSectionProps = {
 
 const SkillsSection: React.FC<SkillsSectionProps> = ({ showImage = true }) => {
     const { language } = useLanguage();
-    const [skills, setSkills] = useState<Skills | null>(null);
-
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                if (data.content[language] && data.content[language].skills) {
-                    setSkills(data.content[language].skills);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching skills:", error);
-            });
-    }, [language]);
+    const jsonData = data as DataStructure;
+    const skills: Skills | null = jsonData.content[language]?.skills || null;
 
     if (!skills) {
         return <div>Loading...</div>;

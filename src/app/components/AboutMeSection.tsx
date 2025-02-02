@@ -1,27 +1,16 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+"use client";
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { highlightText } from '../utils/textUtils';
-
-type AboutContent = {
-    description: string;
-    buttonText: string;
-    buttonLink: string;
-    imageSrc: string;
-    label: string;
-};
+import AnimatedBorderTrail from "@/app/components/animata/container/animated-border-trail";
+import data from '../../../public/data.json';
+import { DataStructure, AboutSection } from '../types';
 
 const AboutMeSection: React.FC = () => {
     const { language } = useLanguage();
-    const [aboutContent, setAboutContent] = useState<AboutContent | null>(null);
+    const contentData: DataStructure = data as DataStructure;
 
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                setAboutContent(data.content[language].aboutSection);
-            });
-    }, [language]);
+    const aboutContent: AboutSection | undefined = contentData.content[language]?.aboutSection;
 
     if (!aboutContent) {
         return null;
@@ -36,12 +25,15 @@ const AboutMeSection: React.FC = () => {
                         <p className="text-lg text-gray-300 mb-6">
                             {highlightText(aboutContent.description)}
                         </p>
-                        <a
-                            href={aboutContent.buttonLink}
-                            className="text-white font-semibold py-3 px-6 transition w-fit border border-accent"
+                        <AnimatedBorderTrail
+                            className=" bg-zinc-600 hover:bg-zinc-500"
+                            contentClassName=" bg-zinc-800"
+                            trailColor="purple"
                         >
-                            {highlightText(aboutContent.buttonText)}
-                        </a>
+                            <button className=" px-3 py-1 text-2xl text-white">
+                                {highlightText(aboutContent.buttonText)} →
+                            </button>
+                        </AnimatedBorderTrail>
                     </div>
 
                     <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center flex-col">

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   content: [
@@ -8,13 +9,22 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        "trail": {
+          "0%": { "--angle": "0deg" },
+          "100%": { "--angle": "360deg" },
+        },
+      },
+      animation: {
+        "trail": "trail var(--duration) linear infinite",
+      },
       colors: {
         background: "var(--background)",
-        foreground: "var(--foreground)",
         primary: "#282C33",
         accent: "#C778DD",
         text: "#ABB2BF",
         white: "#FFFFFF",
+        foreground: "hsl(var(--foreground))",
       },
       fontFamily: {
         sans: ["var(--font-fira-sans)", "sans-serif"],
@@ -22,5 +32,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

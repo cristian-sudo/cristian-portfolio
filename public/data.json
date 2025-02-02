@@ -12,10 +12,10 @@
         ]
       },
       "navLinks": [
-        { "href": "/", "label": "*#*home" },
-        { "href": "/projects", "label": "*#*projects" },
-        { "href": "/about-me", "label": "*#*about-me" },
-        { "href": "/contact", "label": "*#*contacts" }
+        { "href": "/", "label": "home" },
+        { "href": "/projects", "label": "projects" },
+        { "href": "/about-me", "label": "about-me" },
+        { "href": "/contact", "label": "contacts" }
       ],
       "skills": {
         "image": "/hero-image.png",

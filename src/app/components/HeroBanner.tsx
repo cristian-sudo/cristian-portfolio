@@ -1,63 +1,48 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+"use client";
+import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { highlightText } from '../utils/textUtils';
-
-type HeroContent = {
-    title: string;
-    description: string;
-    buttonText: string;
-    buttonLink: string;
-    imageSrc: string;
-    currentProject: string;
-};
+import AnimatedBorderTrail from "@/app/components/animata/container/animated-border-trail";
+import GibberishText from "@/app/components/animata/text/gibberish-text";
+import data from '../../../public/data.json';
+import { DataStructure } from '../types';
 
 const HeroBanner: React.FC = () => {
     const { language } = useLanguage();
-    const [heroContent, setHeroContent] = useState<HeroContent | null>(null);
-
-    useEffect(() => {
-        fetch('/data.json')
-            .then(response => response.json())
-            .then(data => {
-                setHeroContent(data.content[language].heroSection);
-            });
-    }, [language]);
+    const content = (data as DataStructure).content;
+    const heroContent = content[language]?.heroSection;
 
     if (!heroContent) {
-        return null; // or a loading spinner
+        return null;
     }
 
     return (
-        <div className="text-white py-16 my-6">
+        <div className="text-white py-16 my-6 mt-28">
             <div className="container mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
-                {/* Left Side: Text Content */}
                 <div className="md:w-1/2 text-center md:text-left flex gap-3 flex-col">
-                    <h1 className="text-4xl mb-4">
-                        {highlightText(heroContent.title)}
-                    </h1>
                     <p className="text-lg text-gray-300 mb-6">
-                        {highlightText(heroContent.description)}
+                        <GibberishText text={heroContent.title} className={'text-3xl'}/>
                     </p>
-                    <a
-                        href={heroContent.buttonLink}
-                        className="text-white font-semibold py-3 px-6 transition w-fit border border-accent"
+                    <AnimatedBorderTrail
+                        className=" bg-zinc-600 hover:bg-zinc-500"
+                        contentClassName=" bg-zinc-800"
+                        trailColor="red"
                     >
-                        {highlightText(heroContent.buttonText)}
-                    </a>
+                        <button className=" px-3 py-1 text-2xl text-white">
+                            {highlightText(heroContent.buttonText)} →
+                        </button>
+                    </AnimatedBorderTrail>
                 </div>
-
-                {/* Right Side: Image */}
-                <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center flex-col">
+                <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center flex-col md:ml-6">
                     <img
                         src={heroContent.imageSrc}
                         alt="Hero Image"
                         className="w-full max-w-sm rounded-lg shadow-lg"
                     />
                     <span className='my-3 border w-fit p-1 flex flex-row items-center gap-3'>
-            <span className="w-5 h-5 bg-accent inline-block"></span>
-            <p>{highlightText(heroContent.currentProject)}</p>
-          </span>
+                        <span className="w-5 h-5 bg-accent inline-block"></span>
+                        <p>{highlightText(heroContent.currentProject)}</p>
+                    </span>
                 </div>
             </div>
         </div>
