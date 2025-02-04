@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
     }, [language]);
 
     if (!footerData) {
-        return <div>Loading...</div>; // This will be shown until the client-side data is available
+        return null;
     }
 
     const renderIcon = (iconName: string) => {

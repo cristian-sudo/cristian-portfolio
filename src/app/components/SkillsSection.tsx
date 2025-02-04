@@ -20,7 +20,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ showImage = true }) => {
     }, [language]);
 
     if (!skills) {
-        return <div className="text-center py-10">Loading...</div>;
+        return null;
     }
 
     return (

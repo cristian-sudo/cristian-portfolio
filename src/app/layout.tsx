@@ -23,8 +23,29 @@ const firaMono = Fira_Mono({
 
 
 export const metadata: Metadata = {
-  title: "Cristian Plop - Portfolio",
-  description: "Cristian Plop UK based software engineer",
+    title: "Cristian Plop - Portfolio",
+    description: "Cristian Plop UK based software engineer",
+    keywords: "Cristian Plop, software engineer, web development, full-stack developer, portfolio",
+    authors: [
+        {
+            name: "Cristian Plop",
+            url: "https://www.cristianplop.com",
+        },
+    ],
+    openGraph: {
+        type: "website",
+        url: "https://www.cristianplop.com",
+        title: "Cristian Plop - Portfolio",
+        description: "Cristian Plop UK based software engineer",
+        images: [
+            {
+                url: "https://www.cristianplop.com/og-image.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Cristian Plop's Portfolio",
+            },
+        ],
+    },
 };
 
 export default function RootLayout({

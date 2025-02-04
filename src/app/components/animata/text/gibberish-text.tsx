@@ -3,14 +3,7 @@ import { cn } from "@/app/libs/utils";
 import { highlightText } from '@/app/utils/textUtils';
 
 interface GibberishTextProps {
-    /**
-     * The text to animate.
-     */
     text: string;
-
-    /**
-     * The class name to apply to each letter.
-     */
     className?: string;
 }
 
@@ -43,7 +36,7 @@ export default function GibberishText({ text, className }: GibberishTextProps) {
 
     return (
         <>
-            {highlightedParts.map((part, index) => {
+            {highlightedParts?.map((part, index) => {
                 if (typeof part === 'string') {
                     return (
                         <React.Fragment key={index}>
@@ -53,7 +46,6 @@ export default function GibberishText({ text, className }: GibberishTextProps) {
                         </React.Fragment>
                     );
                 } else {
-                    // If part is a React element (highlighted text), apply gibberish effect to each letter
                     return React.cloneElement(part, {
                         children: (part.props.children as string).split("").map((letter: string, letterIndex: number) => (
                             <Letter className={className} letter={letter} key={`${index}-${letterIndex}`} />

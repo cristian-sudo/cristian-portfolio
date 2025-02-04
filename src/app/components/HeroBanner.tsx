@@ -5,12 +5,12 @@ import { highlightText } from '../utils/textUtils';
 import AnimatedBorderTrail from "@/app/components/animata/container/animated-border-trail";
 import GibberishText from "@/app/components/animata/text/gibberish-text";
 import data from '../../../public/data.json';
-import { DataStructure } from '../types';
+import { DataStructure, HeroSection } from '../types';
 import Image from "next/image";
 
 const HeroBanner: React.FC = () => {
     const { language } = useLanguage();
-    const [heroContent, setHeroContent] = useState<any>(null);
+    const [heroContent, setHeroContent] = useState<HeroSection | null>(null);
 
     useEffect(() => {
         const content = (data as DataStructure).content;
@@ -19,7 +19,7 @@ const HeroBanner: React.FC = () => {
     }, [language]);
 
     if (!heroContent) {
-        return <div>Loading...</div>; // Display a loading state while fetching data
+        return null;
     }
 
     return (
