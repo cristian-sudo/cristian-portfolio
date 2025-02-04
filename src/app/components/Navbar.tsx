@@ -27,9 +27,14 @@ const Navbar: React.FC = () => {
 
     const controlNavbar = useCallback(() => {
         if (typeof window !== 'undefined') {
-            if (window.scrollY > lastScrollY) {
+            if (window.scrollY === 0) {
+                // Show navbar when at the top of the page
+                setShowNavbar(true);
+            } else if (window.scrollY > lastScrollY) {
+                // Hide navbar when scrolling down
                 setShowNavbar(false);
             } else {
+                // Show navbar when scrolling up
                 setShowNavbar(true);
             }
             setLastScrollY(window.scrollY);
