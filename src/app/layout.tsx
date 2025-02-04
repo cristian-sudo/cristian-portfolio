@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${firaSans.variable} ${firaMono.variable} antialiased `}
+        className={`${firaSans.variable} ${firaMono.variable} antialiased text-white bg-black`}
       >
       <LanguageProvider>
       <SocialMediaSidebar />
