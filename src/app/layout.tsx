@@ -24,6 +24,16 @@ const firaMono = Fira_Mono({
 
 export const metadata: Metadata = {
     title: "Cristian Plop - Portfolio",
+    icons: {
+        icon: [
+            { url: '/favicon.ico' },
+            { url: '/favicon-32x32.png', type: 'image/png' },
+        ],
+        apple: [
+            { url: '/apple-touch-icon.png' },
+        ],
+    },
+
     description: "Cristian Plop UK based software engineer",
     keywords: "Cristian Plop, software engineer, web development, full-stack developer, portfolio",
     authors: [
