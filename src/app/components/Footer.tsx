@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import GitHubIcon from './icons/GitHubIcon';
 import DiscordIcon from './icons/DiscordIcon';
@@ -8,11 +8,16 @@ import { Footer as FooterType } from '../types';
 
 const Footer: React.FC = () => {
     const { language } = useLanguage();
-    const contentData: { content: Record<string, { footer: FooterType }> } = data as any;
-    const footerData: FooterType | undefined = contentData.content[language]?.footer;
+    const [footerData, setFooterData] = useState<FooterType | null>(null);
+
+    useEffect(() => {
+        const contentData: { content: Record<string, { footer: FooterType }> } = data as never;
+        const fetchedFooterData: FooterType | undefined = contentData.content[language]?.footer;
+        setFooterData(fetchedFooterData || null);
+    }, [language]);
 
     if (!footerData) {
-        return <div>Loading...</div>;
+        return <div>Loading...</div>; // This will be shown until the client-side data is available
     }
 
     const renderIcon = (iconName: string) => {

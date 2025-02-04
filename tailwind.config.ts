@@ -20,11 +20,11 @@ export default {
       },
       colors: {
         background: "var(--background)",
+        foreground: "var(--foreground)",
         primary: "#282C33",
         accent: "#C778DD",
         text: "#ABB2BF",
         white: "#FFFFFF",
-        foreground: "hsl(var(--foreground))",
       },
       fontFamily: {
         sans: ["var(--font-fira-sans)", "sans-serif"],

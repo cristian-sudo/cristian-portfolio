@@ -1,4 +1,4 @@
-export type Language = 'EN' | 'RO';
+export type Language = 'EN' | 'RO' | 'IT' | 'RU';
 
 export type FunFacts = {
     title: string;
@@ -48,6 +48,7 @@ export type Project = {
     description: string;
     tags: string;
     image: string;
+    link: string;
 };
 
 export type Labels = {
@@ -60,6 +61,7 @@ export type ContactSection = {
     description: string;
     discord: string;
     email: string;
+    contactMeText: string;
 };
 
 export type FooterMedia = {

@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const highlightText = (text: string) => {
+export const highlightText = (text: string | undefined | null) => {
+    if (!text) {
+        return null;
+    }
+
     const parts = text.split(/(\*.*?\*)/g);
     return parts.map((part, index) => {
         if (part.startsWith('*') && part.endsWith('*')) {

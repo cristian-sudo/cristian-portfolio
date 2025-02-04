@@ -4,11 +4,11 @@ import LinkedInIcon from './icons/LinkedInIcon';
 
 const SocialMediaSidebar: React.FC = () => {
     return (
-        <div className="fixed top-0 left-3 h-full flex justify-center items-center">
+        <div className="fixed top-0 left-3 h-full justify-center items-center hidden md:flex">
             <div className="sticky top-0  flex flex-col justify-center items-center space-y-4">
                 <div className="w-1 h-16 bg-white"></div>
                 <a
-                    href="https://github.com/your-profile"
+                    href="https://github.com/cristian-sudo"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-800 hover:text-gray-600"
@@ -16,7 +16,7 @@ const SocialMediaSidebar: React.FC = () => {
                     <GitHubIcon />
                 </a>
                 <a
-                    href="https://linkedin.com/in/your-profile"
+                    href="https://www.linkedin.com/in/cristian-plop-39572121b/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-800 hover:text-gray-600"
