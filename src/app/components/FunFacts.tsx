@@ -15,7 +15,7 @@ const FunFacts: React.FC = () => {
     }, [language]);
 
     if (!funFactsData) {
-        return <div>Loading...</div>; // Display a loading state while fetching data
+        return null;
     }
 
     return (

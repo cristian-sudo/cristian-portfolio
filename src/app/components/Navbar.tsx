@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import ShiftTabs from '@/app/components/animata/container/shift-tabs';
 import data from '../../../public/data.json';
-import { DataStructure, NavLink, Language } from '../types'; // Import Language type
+import { DataStructure, NavLink, Language } from '../types';
 import { Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
     const [lastScrollY, setLastScrollY] = useState(0);
     const [hasScrolled, setHasScrolled] = useState(false);
     const [navLinks, setNavLinks] = useState<NavLink[]>([]);
-    const [languages, setLanguages] = useState<Language[]>([]); // Correctly type the state
+    const [languages, setLanguages] = useState<Language[]>([]);
 
     useEffect(() => {
         const jsonData = data as DataStructure;
@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
         setLanguages(fetchedLanguages);
     }, [language]);
 
-    const controlNavbar = () => {
+    const controlNavbar = useCallback(() => {
         if (typeof window !== 'undefined') {
             if (window.scrollY > lastScrollY) {
                 setShowNavbar(false);
@@ -36,14 +36,14 @@ const Navbar: React.FC = () => {
 
             setHasScrolled(window.scrollY > 10);
         }
-    };
+    }, [lastScrollY]);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             window.addEventListener('scroll', controlNavbar);
             return () => window.removeEventListener('scroll', controlNavbar);
         }
-    }, [lastScrollY]);
+    }, [controlNavbar]);
 
     return (
         <nav
@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
                                     <li
                                         key={lang}
                                         onClick={() => {
-                                            setLanguage(lang); // lang is correctly typed as Language
+                                            setLanguage(lang);
                                             setDropdownOpen(false);
                                         }}
                                         className="px-4 py-2 hover:bg-black cursor-pointer"
@@ -108,7 +108,7 @@ const Navbar: React.FC = () => {
                                     <li
                                         key={lang}
                                         onClick={() => {
-                                            setLanguage(lang); // lang is correctly typed as Language
+                                            setLanguage(lang);
                                             setDropdownOpen(false);
                                             setMenuOpen(false);
                                         }}

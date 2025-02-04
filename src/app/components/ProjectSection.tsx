@@ -5,7 +5,7 @@ import ProjectCard from "./ProjectCard";
 import { highlightText } from "@/app/utils/textUtils";
 import AnimatedBorderTrail from "@/app/components/animata/container/animated-border-trail";
 import data from "../../../public/data.json";
-import { DataStructure } from "../types";
+import { DataStructure, Project, Labels } from "../types";
 
 type ProjectSectionProps = {
     showAll?: boolean;
@@ -13,13 +13,13 @@ type ProjectSectionProps = {
 
 const ProjectSection: React.FC<ProjectSectionProps> = ({ showAll = false }) => {
     const { language } = useLanguage();
-    const [projects, setProjects] = useState<any[]>([]);
-    const [labels, setLabels] = useState<any>({});
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [labels, setLabels] = useState<Labels>({ projects: '', viewAll: '' });
 
     useEffect(() => {
         const jsonData = data as DataStructure;
         const fetchedProjects = jsonData.content[language]?.projects || [];
-        const fetchedLabels = jsonData.content[language]?.labels || {};
+        const fetchedLabels = jsonData.content[language]?.labels || { projects: '', viewAll: '' };
         setProjects(fetchedProjects);
         setLabels(fetchedLabels);
     }, [language]);
@@ -27,13 +27,10 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ showAll = false }) => {
     return (
         <div className="py-12 my-6">
             <div className="container mx-auto px-4 md:px-12">
-
-                {/* Heading - Stays at the top */}
                 <h2 className="text-2xl font-bold text-accent mb-6 text-center md:text-left">
                     #{labels.projects}
                 </h2>
 
-                {/* Grid of Projects */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {projects.slice(0, showAll ? projects.length : 3).map((project, index) => (
                         <ProjectCard
@@ -47,7 +44,6 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ showAll = false }) => {
                     ))}
                 </div>
 
-                {/* View All Button - Hidden on larger screens, appears below grid on mobile */}
                 {!showAll && (
                     <div className="mt-6 flex justify-center md:hidden">
                         <AnimatedBorderTrail
@@ -61,8 +57,6 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ showAll = false }) => {
                         </AnimatedBorderTrail>
                     </div>
                 )}
-
-                {/* View All Button for Larger Screens - Stays at the top */}
                 {!showAll && (
                     <div className="hidden md:flex justify-end mt-6">
                         <AnimatedBorderTrail
@@ -76,7 +70,6 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ showAll = false }) => {
                         </AnimatedBorderTrail>
                     </div>
                 )}
-
             </div>
         </div>
     );

@@ -18,7 +18,7 @@ const AboutMeSection: React.FC = () => {
     }, [language]);
 
     if (!aboutContent) {
-        return <div>Loading...</div>; // Display a loading state while fetching data
+        return null;
     }
 
     return (

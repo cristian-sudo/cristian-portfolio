@@ -17,7 +17,7 @@ const ContactSection: React.FC = () => {
     }, [language]);
 
     if (!contactInfo) {
-        return <div className="text-center py-10">Loading...</div>; // Display a loading state while fetching data
+        return null;
     }
 
     return (
