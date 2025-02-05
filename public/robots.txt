@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://cristianplop.com
+
+# Sitemaps
+Sitemap: https://cristianplop.com/sitemap.xml
