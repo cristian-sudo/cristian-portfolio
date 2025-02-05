@@ -84,6 +84,13 @@
           "tags": "Laravel Statamic TailwindCSS AWS",
           "link": "https://brewdigital.com",
           "image": "/brew.png"
+        },
+        {
+          "title": "Doctor Chatbot AI",
+          "description": "AI Chatbot for medical consultations",
+          "tags": "NextJS TailwindCSS Vercel",
+          "link": "https://doctor-chatbot-ai.vercel.app/",
+          "image": "/chatbot.png"
         }
       ],
       "labels": {
@@ -192,6 +199,13 @@
           "tags": "Laravel Statamic TailwindCSS AWS",
           "link": "https://brewdigital.com",
           "image": "/brew.png"
+        },
+        {
+          "title": "Doctor Chatbot AI",
+          "description": "Chatbot AI pentru consultații medicale",
+          "tags": "NextJS TailwindCSS Vercel",
+          "link": "https://doctor-chatbot-ai.vercel.app/",
+          "image": "/chatbot.png"
         }
       ],
       "labels": {
@@ -300,6 +314,13 @@
           "tags": "Laravel Statamic TailwindCSS AWS",
           "link": "https://brewdigital.com",
           "image": "/brew.png"
+        },
+        {
+          "title": "Dottore Chatbot AI",
+          "description": "Chatbot AI per consultazioni mediche",
+          "tags": "NextJS TailwindCSS Vercel",
+          "link": "https://doctor-chatbot-ai.vercel.app/",
+          "image": "/chatbot.png"
         }
       ],
       "labels": {
@@ -408,6 +429,13 @@
           "tags": "Laravel Statamic TailwindCSS AWS",
           "link": "https://brewdigital.com",
           "image": "/brew.png"
+        },
+        {
+          "title": "Доктор Чат-бот AI",
+          "description": "Чат-бот AI для медицинских консультаций",
+          "tags": "NextJS TailwindCSS Vercel",
+          "link": "https://doctor-chatbot-ai.vercel.app/",
+          "image": "/chatbot.png"
         }
       ],
       "labels": {
