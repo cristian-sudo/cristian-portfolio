@@ -68,9 +68,6 @@ export default function RootLayout({
     <head>
         <meta charSet="UTF-8" />
         <title>Cristian Plop - Portfolio</title>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" type="image/png" href="/favicon-32x32.png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     </head>
       <body
         className={`${firaSans.variable} ${firaMono.variable} antialiased text-white bg-black`}

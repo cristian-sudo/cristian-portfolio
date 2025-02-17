@@ -1,54 +1,91 @@
 "use client";
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import ShiftTabs from '@/app/components/animata/container/shift-tabs';
-import data from '../../../public/data.json';
-import { DataStructure, NavLink, Language } from '../types';
 import { Menu, X } from 'lucide-react';
+import { Language, PageData } from '../types';
+
+interface NavLink {
+    href: string;
+    label: string;
+}
+type Procedure<T extends unknown[]> = (...args: T) => void;
 
 const Navbar: React.FC = () => {
+    const supportedLanguages: Language[] = ['EN', 'RO', 'IT', 'RU'];
     const { language, setLanguage } = useLanguage();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [hasScrolled, setHasScrolled] = useState(false);
-    const [navLinks, setNavLinks] = useState<NavLink[]>([]);
-    const [languages, setLanguages] = useState<Language[]>([]);
+    const [navLinks, setNavLinks] = useState<NavLink[] | null>(null);
+    const [languages] = useState<Language[]>(supportedLanguages);
+
+    function isLanguage(lang: Language): lang is Language {
+        return supportedLanguages.includes(lang);
+    }
 
     useEffect(() => {
-        const jsonData = data as DataStructure;
-        const fetchedNavLinks = jsonData.content[language]?.navLinks || [];
-        const fetchedLanguages = jsonData.languages || [];
-        setNavLinks(fetchedNavLinks);
-        setLanguages(fetchedLanguages);
+        const fetchPages = async (): Promise<void> => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/collections/pages/entries`);
+                if (!res.ok) {
+                    console.error('Failed to fetch pages');
+                    return;
+                }
+                const data = await res.json();
+                const languageToLowerCase = language.toLowerCase();
+                const pages = data.data.map((page: PageData) => {
+                    const titleKey = `${languageToLowerCase}_title` as keyof PageData;
+                    return {
+                        href: `/${page.id}`,
+                        label: page[titleKey] || '...',
+                    };
+                });
+                setNavLinks(pages);
+            } catch (error) {
+                console.error('Error fetching pages:', error);
+            }
+        };
+
+        fetchPages().catch(error => {
+            console.error('Error in fetchPages:', error);
+        });
     }, [language]);
 
-    const controlNavbar = useCallback(() => {
-        if (typeof window !== 'undefined') {
-            if (window.scrollY === 0) {
-                // Show navbar when at the top of the page
-                setShowNavbar(true);
-            } else if (window.scrollY > lastScrollY) {
-                // Hide navbar when scrolling down
-                setShowNavbar(false);
-            } else {
-                // Show navbar when scrolling up
-                setShowNavbar(true);
+    useEffect(() => {
+        const controlNavbar = () => {
+            if (typeof window !== 'undefined') {
+                if (window.scrollY === 0) {
+                    setShowNavbar(true);
+                } else if (window.scrollY > lastScrollY) {
+                    setShowNavbar(false);
+                } else {
+                    setShowNavbar(true);
+                }
+                setLastScrollY(window.scrollY);
+                setHasScrolled(window.scrollY > 5);
             }
-            setLastScrollY(window.scrollY);
+        };
 
-            setHasScrolled(window.scrollY > 10);
+        const debouncedControlNavbar = debounce(controlNavbar, 5);
+
+        if (typeof window !== 'undefined') {
+            window.addEventListener('scroll', debouncedControlNavbar);
+            return () => window.removeEventListener('scroll', debouncedControlNavbar);
         }
     }, [lastScrollY]);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            window.addEventListener('scroll', controlNavbar);
-            return () => window.removeEventListener('scroll', controlNavbar);
-        }
-    }, [controlNavbar]);
+    function debounce<F extends Procedure<T>, T extends unknown[]>(func: F, wait: number) {
+        let timeout: ReturnType<typeof setTimeout>;
+
+        return function (...args: T) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func(...args), wait);
+        };
+    }
 
     return (
         <nav
@@ -70,19 +107,30 @@ const Navbar: React.FC = () => {
                 </div>
 
                 <div className="hidden md:flex space-x-6 items-center">
-                    <ShiftTabs items={navLinks} />
+                    {navLinks ? (
+                        <ShiftTabs items={navLinks} />
+                    ) : (
+                        <div>Loading...</div>
+                    )}
                     <div className="relative">
-                        <button onClick={() => setDropdownOpen(!dropdownOpen)} className="bg-accent px-2 py-1 rounded" aria-haspopup="true" aria-expanded={dropdownOpen}>
+                        <button
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                            className="bg-accent px-2 py-1 rounded"
+                            aria-haspopup="true"
+                            aria-expanded={dropdownOpen}
+                        >
                             {language}
                         </button>
                         {dropdownOpen && (
                             <ul className="absolute right-0 mt-2 w-24 bg-accent rounded shadow-lg" role="menu">
-                                {languages.map((lang: Language) => (
+                                {languages.map((lang) => (
                                     <li
                                         key={lang}
                                         onClick={() => {
-                                            setLanguage(lang);
-                                            setDropdownOpen(false);
+                                            if (isLanguage(lang)) {
+                                                setLanguage(lang);
+                                                setDropdownOpen(false);
+                                            }
                                         }}
                                         className="px-4 py-2 hover:bg-black cursor-pointer"
                                         role="menuitem"
@@ -98,24 +146,35 @@ const Navbar: React.FC = () => {
 
             {menuOpen && (
                 <div className="md:hidden bg-black text-white flex flex-col items-center space-y-4 py-4">
-                    {navLinks.map((link, index) => (
-                        <Link key={index} href={link.href} className="text-lg" onClick={() => setMenuOpen(false)}>
-                            {link.label}
-                        </Link>
-                    ))}
+                    {navLinks ? (
+                        navLinks.map((link, index) => (
+                            <Link key={index} href={link.href} className="text-lg" onClick={() => setMenuOpen(false)}>
+                                {link.label}
+                            </Link>
+                        ))
+                    ) : (
+                        <div>Loading...</div>
+                    )}
                     <div className="relative">
-                        <button onClick={() => setDropdownOpen(!dropdownOpen)} className="bg-accent px-2 py-1 rounded" aria-haspopup="true" aria-expanded={dropdownOpen}>
+                        <button
+                            onClick={() => setDropdownOpen(!dropdownOpen)}
+                            className="bg-accent px-2 py-1 rounded"
+                            aria-haspopup="true"
+                            aria-expanded={dropdownOpen}
+                        >
                             {language}
                         </button>
                         {dropdownOpen && (
                             <ul className="absolute right-0 mt-2 w-24 bg-accent rounded shadow-lg" role="menu">
-                                {languages.map((lang: Language) => (
+                                {languages.map((lang) => (
                                     <li
                                         key={lang}
                                         onClick={() => {
-                                            setLanguage(lang);
-                                            setDropdownOpen(false);
-                                            setMenuOpen(false);
+                                            if (isLanguage(lang)) {
+                                                setLanguage(lang);
+                                                setDropdownOpen(false);
+                                                setMenuOpen(false);
+                                            }
                                         }}
                                         className="px-4 py-2 hover:bg-black cursor-pointer"
                                         role="menuitem"

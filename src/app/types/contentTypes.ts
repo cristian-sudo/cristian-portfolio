@@ -1,98 +1,79 @@
+export interface Image {
+    id: string;
+    url: string;
+    permalink: string;
+    api_url: string;
+    alt: string | null;
+}
+
+
 export type Language = 'EN' | 'RO' | 'IT' | 'RU';
 
-export type FunFacts = {
+
+
+
+//////////
+export type PageSection = HeroBannerSection | QuoteSection | ProjectsSection;
+
+export interface PageData {
+    page_builder: PageSection[];
+}
+///////////////////////////////////////
+export interface HeroBannerSection {
+    id: string;
+    type: 'hero_section';
+    title?: string;
+    ru_title?: string;
+    ro_title?: string;
+    it_title?: string;
+    button_label?: string;
+    ru_button_label?: string;
+    ro_button_label?: string;
+    it_button_label?: string;
+    link?: string;
+    image?: Image;
+    under_image_text?: string;
+    ru_under_image_text?: string;
+    ro_under_image_text?: string;
+    it_under_image_text?: string;
+}
+///////////////////////////////////////
+export interface Quote {
+    id: string;
     title: string;
-    facts: string[];
-};
-
-export type NavLink = {
-    href: string;
-    label: string;
-};
-
-export type SkillsCategory = {
-    [key: string]: string[];
-};
-
-export type Skills = {
-    image: string;
-    label: string;
-    categories: SkillsCategory;
-};
-
-export type AboutSection = {
-    buttonText: string;
-    buttonLink: string;
-    description: string;
-    imageSrc: string;
-    label: string;
-    longDescription?: string;
-};
-
-export type HeroSection = {
-    title: string;
-    description: string;
-    buttonText: string;
-    buttonLink: string;
-    imageSrc: string;
-    currentProject: string;
-};
-
-export type Quote = {
-    text: string;
     author: string;
-};
+    url: string | null;
+    permalink: string | null;
+    api_url: string;
+}
 
-export type Project = {
+export interface QuoteSection {
+    id: string;
+    type: 'quote_section';
+    quotes: Quote;
+}
+
+/////////////
+
+export interface Project {
+    id: string;
+    api_url: string;
     title: string;
     description: string;
-    tags: string;
+    tags: Tag[];
     image: string;
     link: string;
-};
+}
 
-export type Labels = {
-    projects: string;
-    viewAll: string;
-};
+export interface Tag {
+    id: string;
+    title: string;
+}
 
-export type ContactSection = {
-    label: string;
-    description: string;
-    discord: string;
-    email: string;
-    contactMeText: string;
-};
-
-export type FooterMedia = {
-    icon: string;
-    link: string;
-};
-
-export type Footer = {
-    name: string;
-    email: string;
-    description: string;
-    copyright: string;
-    media: FooterMedia[];
-};
-
-export type Content = {
-    myFunFacts?: FunFacts;
-    navLinks: NavLink[];
-    skills: Skills;
-    aboutSection: AboutSection;
-    heroSection: HeroSection;
-    quote: Quote;
+export interface ProjectsSection {
+    type: 'projects_section';
+    title?: string;
+    button_label?: string;
+    button_link?: string;
     projects: Project[];
-    labels: Labels;
-    contactSection: ContactSection;
-    footer: Footer;
-};
-
-export type DataStructure = {
-    languages: Language[];
-    content: {
-        [key in Language]: Content;
-    };
-};
+}

@@ -1,7 +1,19 @@
 import type { NextConfig } from "next";
 
+const imageDomain = process.env.NEXT_PUBLIC_IMAGE_DOMAIN;
+
 const nextConfig: NextConfig = {
-  /* config options here */
+    images: {
+        remotePatterns: imageDomain
+            ? [
+                {
+                    protocol: 'http',
+                    hostname: imageDomain,
+                    pathname: '/**',
+                },
+            ]
+            : [],
+    },
 };
 
 export default nextConfig;

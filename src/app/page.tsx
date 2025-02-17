@@ -1,19 +1,25 @@
-import HeroBanner from "@/app/components/HeroBanner";
-import Quote from "@/app/components/Quote";
-import ProjectSection from "@/app/components/ProjectSection";
-import SkillsSection from "@/app/components/SkillsSection";
-import AboutMeSection from "@/app/components/AboutMeSection";
-import ContactSection from "@/app/components/ContactSection";
+import React from 'react';
+import HomePageClient from "@/app/HomePageClient";
+import { ApiResponse } from "@/app/types";
 
-export default function Home() {
-  return (
-      <>
-        <HeroBanner/>
-        <Quote/>
-        <ProjectSection/>
-        <SkillsSection />
-        <AboutMeSection />
-        <ContactSection />
-      </>
-  );
-}
+const HomePage = async () => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/collections/pages/entries/home`, {
+            cache: 'no-store',
+        });
+        const apiData: ApiResponse = await res.json();
+
+        const homePageData = apiData.data;
+
+        if (!homePageData) {
+            return <div>Page not found</div>;
+        }
+
+        return <HomePageClient pageData={homePageData} />;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return <div>Error loading page</div>;
+    }
+};
+
+export default HomePage;
