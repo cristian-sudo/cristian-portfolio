@@ -44,7 +44,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     }, [language, project]);
 
     if (!projectDetails) {
-        return <div>Loading...</div>;
+        return <div></div>;
     }
 
     const { title, description, tags, image, link } = projectDetails;

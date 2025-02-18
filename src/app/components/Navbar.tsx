@@ -155,7 +155,7 @@ const Navbar: React.FC = () => {
                             </Link>
                         ))
                     ) : (
-                        <div>Loading...</div>
+                        <div></div>
                     )}
                     <div className="relative">
                         <button

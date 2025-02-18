@@ -38,7 +38,7 @@ const isFunFactsSection = (section: PageSection): section is FunFactsSection => 
 
 const PageClient: React.FC<ClientPageProps> = ({ pageData }) => {
     if (!pageData || !pageData.page_builder) {
-        return <div>Loading...</div>;
+        return <div></div>;
     }
 
     return (
