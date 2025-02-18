@@ -30,6 +30,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                         title: tag.title,
                     })),
                     image: data.image[0].permalink,
+                    link: data.link,
                 };
 
                 setProjectDetails(localizedProject);
@@ -48,6 +49,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     }
 
     const { title, description, tags, image, link } = projectDetails;
+
     const tagTitles = tags.map(tag => tag.title).join(", ");
 
     return (
