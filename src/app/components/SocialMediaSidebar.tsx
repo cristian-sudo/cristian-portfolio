@@ -15,6 +15,7 @@ const SocialMediaSidebar: React.FC = () => {
 
     useEffect(() => {
         const fetchSocialMediaLinks = async () => {
+
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/globals/social_media_side_banner`);
                 const result = await response.json();
