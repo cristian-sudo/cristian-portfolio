@@ -3,22 +3,27 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import Image from 'next/image';
-import { Section, Skill } from '../types';
+import { SkillsSection as SkillsSectionType, Skill, Tag } from '../types';
 
-const SkillsSection: React.FC<Section> = (section) => {
+function getLocalizedTitle(section: SkillsSectionType, language: string): string {
+    const key = `${language}_title`;
+    return ((section as unknown) as Record<string, string>)[key] || section.title;
+}
+
+const SkillsSection: React.FC<SkillsSectionType> = (section) => {
     const { language } = useLanguage();
     const [skillsContent, setSkillsContent] = useState<Skill[] | null>(null);
+    const [title, setTitle] = useState<string>(getLocalizedTitle(section, language.toLowerCase()));
 
     useEffect(() => {
         const fetchSkills = async () => {
-            if (!section || !section.skils) {
+            if (!section || !section.skills) {
                 console.error('Skills section data is undefined');
                 return;
             }
 
             try {
-                // Fetch additional data for each skill, if necessary
-                const skillsData = await Promise.all(section.skils.map(async (skill) => {
+                const skillsData = await Promise.all(section.skills.map(async (skill) => {
                     if (skill.api_url) {
                         const response = await fetch(skill.api_url);
                         const result = await response.json();
@@ -26,7 +31,7 @@ const SkillsSection: React.FC<Section> = (section) => {
 
                         return {
                             ...skill,
-                            tags: data.skils.map((s: any) => s.title) || [],
+                            tags: data.skills.map((s: Tag) => s.title) || [],
                         };
                     }
                     return skill;
@@ -38,15 +43,18 @@ const SkillsSection: React.FC<Section> = (section) => {
             }
         };
 
-        fetchSkills();
+        fetchSkills().catch(
+            (error) => console.error('Error fetching skills:', error)
+        );
     }, [section]);
+
+    useEffect(() => {
+        setTitle(getLocalizedTitle(section, language.toLowerCase()));
+    }, [language, section]);
 
     if (!skillsContent) {
         return null;
     }
-
-    const selectedLanguage = language.toLowerCase();
-    const title = section[`${selectedLanguage}_title`] || section.title;
 
     return (
         <div className="py-12 my-6">
@@ -59,7 +67,7 @@ const SkillsSection: React.FC<Section> = (section) => {
                     {section.image && (
                         <div className="w-full md:w-1/3 flex justify-center">
                             <Image
-                                src={section.image.url}
+                                src={section.image?.permalink}
                                 width={400}
                                 height={400}
                                 alt="Skills"

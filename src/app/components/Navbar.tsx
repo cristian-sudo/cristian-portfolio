@@ -37,13 +37,15 @@ const Navbar: React.FC = () => {
                 }
                 const data = await res.json();
                 const languageToLowerCase = language.toLowerCase();
-                const pages = data.data.map((page: PageData) => {
-                    const titleKey = `${languageToLowerCase}_title` as keyof PageData;
-                    return {
-                        href: `/${page.id}`,
-                        label: page[titleKey] || '...',
-                    };
-                });
+                const pages = data.data
+                    .filter((page: PageData) => page.slug !== 'home')
+                    .map((page: PageData) => {
+                        const titleKey = `${languageToLowerCase}_title` as keyof PageData;
+                        return {
+                            href: `/${page.slug}`,
+                            label: page[titleKey] || '...',
+                        };
+                    });
                 setNavLinks(pages);
             } catch (error) {
                 console.error('Error fetching pages:', error);
@@ -110,7 +112,7 @@ const Navbar: React.FC = () => {
                     {navLinks ? (
                         <ShiftTabs items={navLinks} />
                     ) : (
-                        <div>Loading...</div>
+                        <></>
                     )}
                     <div className="relative">
                         <button

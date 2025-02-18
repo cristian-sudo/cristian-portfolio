@@ -1,31 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { highlightText } from '../utils/textUtils';
-import data from '../../../public/data.json';
-import { FunFacts as FunFactsType } from '../types';
+import { FunFactsSection } from '../types';
 
-const FunFacts: React.FC = () => {
+const FunFacts: React.FC<FunFactsSection> = ( section) => {
     const { language } = useLanguage();
-    const [funFactsData, setFunFactsData] = useState<FunFactsType | null>(null);
+    const [facts, setFacts] = useState<string[]>([]);
 
     useEffect(() => {
-        const contentData: { content: Record<string, { myFunFacts: FunFactsType }> } = data as never;
-        const fetchedFunFactsData: FunFactsType | undefined = contentData.content[language]?.myFunFacts;
-        setFunFactsData(fetchedFunFactsData || null);
-    }, [language]);
+        const fetchFacts = async () => {
+            try {
+                const responses = await Promise.all(
+                    section.facts.map((fact) =>
+                        fetch(fact.api_url)
+                            .then((response) => response.json())
+                            .then((data) => data.data)
+                    )
+                );
 
-    if (!funFactsData) {
-        return null;
-    }
+                // Map the responses to the localized title based on the language
+                const fetchedFacts = responses.map((response) => {
+                    const titleKey = `${language.toLowerCase()}_title`;
+                    return response[titleKey] || response.title;
+                });
+
+                setFacts(fetchedFacts);
+            } catch (error) {
+                console.error("Error fetching facts:", error);
+            }
+        };
+
+        fetchFacts();
+    }, [section, language]);
+
+    const titleKey = `${language.toLowerCase()}_title` as keyof FunFactsSection;
+    const localizedTitle = section ? (section[titleKey] as string) || section.title : '';
+
+
 
     return (
         <div className="py-16 my-6">
             <div className="container mx-auto px-6 md:px-12">
-                <h2 className="text-2xl font-bold mb-6">
-                    {highlightText(funFactsData.title)}
+                <h2 className="text-2xl font-bold mb-6 text-accent">
+                    #{highlightText(localizedTitle)}
                 </h2>
                 <div className="flex flex-wrap gap-4">
-                    {funFactsData.facts.map((fact, index) => (
+                    {facts.map((fact, index) => (
                         <div
                             key={index}
                             className="border border-gray-500 p-1 text-center"

@@ -3,18 +3,47 @@ import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import GitHubIcon from './icons/GitHubIcon';
 import DiscordIcon from './icons/DiscordIcon';
-import data from '../../../public/data.json';
-import { Footer as FooterType } from '../types';
+
+interface FooterData {
+    discord: string;
+    email: string;
+    github: string;
+    it_job_title: string;
+    it_media_label: string;
+    job_title: string;
+    media_label: string;
+    name: string;
+    ro_job_title: string;
+    ro_media_label: string;
+    ru_job_title: string;
+    ru_media_label: string;
+}
 
 const Footer: React.FC = () => {
     const { language } = useLanguage();
-    const [footerData, setFooterData] = useState<FooterType | null>(null);
+    const [footerData, setFooterData] = useState<FooterData | null>(null);
+    const getLocalizedJobTitle = (data: FooterData, language: string): string => {
+        const key = `${language}_job_title`;
+        return ((data as unknown) as Record<string, string>)[key] || data.job_title;
+    };
+    const getLocalizedMediaLabel = (data: FooterData, language: string): string => {
+        const key = `${language}_media_label`;
+        return ((data as unknown) as Record<string, string>)[key] || data.media_label;
+    };
 
     useEffect(() => {
-        const contentData: { content: Record<string, { footer: FooterType }> } = data as never;
-        const fetchedFooterData: FooterType | undefined = contentData.content[language]?.footer;
-        setFooterData(fetchedFooterData || null);
-    }, [language]);
+        const fetchFooterData = async () => {
+            try {
+                const response = await fetch('http://cris-portfolio-be.test/api/globals/footer');
+                const result = await response.json();
+                setFooterData(result.data);
+            } catch (error) {
+                console.error('Failed to fetch footer data:', error);
+            }
+        };
+
+        fetchFooterData();
+    }, []);
 
     if (!footerData) {
         return null;
@@ -38,21 +67,22 @@ const Footer: React.FC = () => {
                 <div>
                     <h3 className="font-bold text-lg">{footerData.name}</h3>
                     <p>{footerData.email}</p>
-                    <p className="text-gray-400">{footerData.description}</p>
+                    <p className="text-gray-400">{getLocalizedJobTitle(footerData, language.toLowerCase())}</p>
                 </div>
                 <div>
-                    <h4 className="font-bold text-lg mb-2">Media</h4>
+                    <h4 className="font-bold text-lg mb-2">{getLocalizedMediaLabel(footerData, language.toLowerCase())}</h4>
                     <div className="flex space-x-4">
-                        {footerData.media.map((mediaItem, index) => (
-                            <a key={index} href={mediaItem.link} target="_blank" rel="noopener noreferrer" className="text-gray-400">
-                                {renderIcon(mediaItem.icon)}
-                            </a>
-                        ))}
+                        <a href={footerData.github} target="_blank" rel="noopener noreferrer" className="text-gray-400">
+                            {renderIcon('GitHubIcon')}
+                        </a>
+                        <a href={footerData.discord} target="_blank" rel="noopener noreferrer" className="text-gray-400">
+                            {renderIcon('DiscordIcon')}
+                        </a>
                     </div>
                 </div>
             </div>
             <div className="text-center text-gray-500 mt-4">
-                {footerData.copyright}
+                © {new Date().getFullYear()} {footerData.name}
             </div>
         </footer>
     );

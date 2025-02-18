@@ -11,7 +11,7 @@ const ProjectsSection: React.FC<{ section: ProjectSectionType }> = ({ section })
     const { language } = useLanguage();
     const [localizedContent, setLocalizedContent] = useState({
         title: section.title || "Default Title",
-        buttonLabel: section.button_label || "Default Button Label"
+        buttonLabel: section.button_label
     });
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const ProjectsSection: React.FC<{ section: ProjectSectionType }> = ({ section })
 
         setLocalizedContent({
             title: (section[titleKey] || section.title || "Default Title") as string,
-            buttonLabel: (section[buttonLabelKey] || section.button_label || "Default Button Label") as string
+            buttonLabel: (section[buttonLabelKey] || section.button_label ) as string
         });
     }, [language, section]);
 
@@ -39,29 +39,32 @@ const ProjectsSection: React.FC<{ section: ProjectSectionType }> = ({ section })
                         ))
                     }
                 </div>
-
-                <div className="mt-6 flex justify-center md:hidden">
-                    <AnimatedBorderTrail
-                        className="bg-zinc-600 hover:bg-zinc-500"
-                        contentClassName="bg-zinc-800"
-                        trailColor="purple"
-                    >
-                        <a href={section.button_link} className="px-4 py-2 text-lg font-bold">
-                            {highlightText(localizedContent.buttonLabel)} →
-                        </a>
-                    </AnimatedBorderTrail>
-                </div>
-                <div className="hidden md:flex justify-end mt-6">
-                    <AnimatedBorderTrail
-                        className=" bg-zinc-600 hover:bg-zinc-500"
-                        contentClassName=" bg-zinc-800"
-                        trailColor="red"
-                    >
-                        <a href={section.button_link} className=" px-3 text-2xl">
-                            {highlightText(localizedContent.buttonLabel)} →
-                        </a>
-                    </AnimatedBorderTrail>
-                </div>
+                {localizedContent.buttonLabel &&
+                    <>
+                        <div className="mt-6 flex justify-center md:hidden">
+                            <AnimatedBorderTrail
+                                className="bg-zinc-600 hover:bg-zinc-500"
+                                contentClassName="bg-zinc-800"
+                                trailColor="purple"
+                            >
+                                <a href={section.button_link} className="px-4 py-2 text-lg font-bold">
+                                    {highlightText(localizedContent.buttonLabel)} →
+                                </a>
+                            </AnimatedBorderTrail>
+                        </div>
+                        <div className="hidden md:flex justify-end mt-6">
+                            <AnimatedBorderTrail
+                                className=" bg-zinc-600 hover:bg-zinc-500"
+                                contentClassName=" bg-zinc-800"
+                                trailColor="red"
+                            >
+                                <a href={section.button_link} className=" px-3 text-2xl">
+                                    {highlightText(localizedContent.buttonLabel)} →
+                                </a>
+                            </AnimatedBorderTrail>
+                        </div>
+                    </>
+                }
             </div>
         </div>
     );
