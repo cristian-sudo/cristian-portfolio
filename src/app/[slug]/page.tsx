@@ -1,11 +1,16 @@
-// app/[slug]/page.tsx
 import React from 'react';
 import PageClient from "@/app/PageClient";
 import { ApiResponse } from "@/app/types";
 
-const DynamicPage = async ({ params }: { params: { slug: string } }) => {
+type Params = Promise<{ slug: string }>;
+
+interface PageProps {
+    params: Params;
+}
+
+const DynamicPage: React.FC<PageProps> = async ({ params }) => {
     try {
-        const { slug } = params;
+        const { slug } = await params;
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/collections/pages/entries?filter[slug:is]=${slug}`, {
             cache: 'no-store',
