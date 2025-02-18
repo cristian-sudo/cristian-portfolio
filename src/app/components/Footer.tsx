@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
     useEffect(() => {
         const fetchFooterData = async () => {
             try {
-                const response = await fetch('http://cris-portfolio-be.test/api/globals/footer');
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/globals/footer`);
                 const result = await response.json();
                 setFooterData(result.data);
             } catch (error) {

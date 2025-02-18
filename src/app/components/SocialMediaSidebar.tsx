@@ -16,7 +16,7 @@ const SocialMediaSidebar: React.FC = () => {
     useEffect(() => {
         const fetchSocialMediaLinks = async () => {
             try {
-                const response = await fetch('http://cris-portfolio-be.test/api/globals/social_media_side_banner');
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/globals/social_media_side_banner`);
                 const result = await response.json();
                 setSocialMediaLinks(result.data);
             } catch (error) {
