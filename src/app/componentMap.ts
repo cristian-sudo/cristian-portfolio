@@ -7,7 +7,7 @@ import ContactSection from "@/app/components/ContactSection";
 import AboutMeHeroBanner from "@/app/components/AboutMeHeroBanner";
 import FunFacts from "@/app/components/FunFacts";
 
-const componentMap: { [key: string]: React.FC<any> } = {
+const componentMap: { [key: string]: React.FC<any> } = { // eslint-disable-line
     hero_section: HeroBanner,
     quote_section: Quote,
     projects_section: ProjectsSection,
