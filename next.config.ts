@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
         remotePatterns: imageDomain
             ? [
                 {
+                    protocol: 'http',
+                    hostname: imageDomain,
+                    pathname: '/**',
+                },
+                {
                     protocol: 'https',
                     hostname: imageDomain,
                     pathname: '/**',
