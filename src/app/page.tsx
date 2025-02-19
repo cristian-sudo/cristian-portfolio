@@ -1,4 +1,3 @@
-// app/page.tsx
 import React from 'react';
 import PageClient from "@/app/PageClient";
 import { ApiResponse } from "@/app/types";
@@ -17,6 +16,7 @@ const HomePage = async () => {
 
         const apiData: ApiResponse = await res.json();
         const homePageData = apiData.data[0];
+        homePageData.cms_domain = process.env.NEXT_PUBLIC_BACKEND_DOMAIN;
 
         if (!homePageData) {
             return <div>Page not found</div>;

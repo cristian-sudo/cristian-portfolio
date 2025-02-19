@@ -60,6 +60,7 @@ const PageClient: React.FC<ClientPageProps> = ({ pageData }) => {
                 } else if (isProjectSection(section)) {
                     const Component = componentMap[section.type];
                     if (Component) {
+                        section.cms_domain = pageData.cms_domain;
                         return <Component key={index} section={section} />;
                     }
                 } else if (isSkillsSection(section)) {

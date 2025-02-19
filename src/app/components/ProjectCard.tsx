@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import { Project, Tag } from "../types";
 import { useLanguage } from "../context/LanguageContext";
@@ -7,6 +5,7 @@ import { useLanguage } from "../context/LanguageContext";
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const { language } = useLanguage();
     const [projectDetails, setProjectDetails] = useState<Project | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchLocalizedData = async () => {
@@ -17,14 +16,15 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                 }
                 const result = await response.json();
                 const data = result.data;
-
                 const titleKey = `${language.toLowerCase()}_title`;
                 const descriptionKey = `${language.toLowerCase()}_description`;
+                const moreKey = `${language.toLowerCase()}_more`;
 
                 const localizedProject: Project = {
                     ...project,
                     title: data[titleKey] || data.title || project.title,
                     description: data[descriptionKey] || data.description || project.description,
+                    more: data[moreKey] || data.more,
                     tags: (data.tags || []).map((tag: Tag) => ({
                         ...tag,
                         title: tag.title,
@@ -44,13 +44,41 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         });
     }, [language, project]);
 
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [isModalOpen]);
+
     if (!projectDetails) {
         return <div></div>;
     }
 
-    const { title, description, tags, image, link } = projectDetails;
-
+    const { title, description, tags, image, link, more } = projectDetails;
     const tagTitles = tags.map(tag => tag.title).join(", ");
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
+    const modifyImageUrls = (htmlContent: string) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, "text/html");
+
+        doc.querySelectorAll('img').forEach(img => {
+            const src = img.getAttribute('src');
+            if (src && !src.startsWith('http')) {
+                img.setAttribute('src', `${project.cms_domain}${src}`);
+            }
+        });
+
+        return doc.body.innerHTML;
+    };
 
     return (
         <div className="border border-gray-600 rounded-b-lg overflow-hidden shadow-lg bg-gray-800">
@@ -76,8 +104,62 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                     >
                         Live ↔
                     </a>
+                    {more &&
+                        <button
+                            onClick={openModal}
+                            className="bg-accent text-white px-4 py-2 rounded w-full sm:w-auto"
+                        >
+                            More
+                        </button>
+                    }
                 </div>
             </div>
+
+            {isModalOpen && (
+                <div
+                    className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75"
+                    onClick={closeModal}
+                >
+                    <div
+                        className="bg-gray-900 text-white w-11/12 max-w-4xl h-[70%] rounded-lg overflow-hidden flex flex-col lg:flex-row shadow-lg relative"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            onClick={closeModal}
+                            className="text-4xl absolute top-4 right-4 text-gray-300 hover:text-accent bg-gray-700 hover:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center transition duration-300 ease-in-out"
+                        >
+                            &times;
+                        </button>
+                        <div className="w-full lg:w-2/3 overflow-y-auto p-6 scrollbar-hide">
+                            {/* Tags section for mobile */}
+                            <div className="block lg:hidden mb-4">
+                                <div className="h-[2px] mt-12 mb-3 w-full bg-accent"></div>
+                                <ul className="list-disc list-inside text-gray-400">
+                                    {tags.map((tag) => (
+                                        <li key={tag.id}>{tag.title}</li>
+                                    ))}
+                                </ul>
+                                <div className="h-[2px] my-3 w-full bg-accent"></div>
+                            </div>
+                            {typeof more === 'string' &&
+                                <div
+                                    className="prose prose-invert prose-img:rounded-lg prose-img:shadow-md text-accent"
+                                    dangerouslySetInnerHTML={{ __html: modifyImageUrls(more) }}
+                                ></div>
+                            }
+                        </div>
+                        {/* Tags section for desktop */}
+                        <div className="hidden lg:block w-1/3 bg-gray-800 p-4 border-l border-gray-700">
+                            <div className="h-[2px] mt-12 mb-3 w-full bg-accent"></div>
+                            <ul className="list-disc list-inside text-gray-400">
+                                {tags.map((tag) => (
+                                    <li key={tag.id}>{tag.title}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

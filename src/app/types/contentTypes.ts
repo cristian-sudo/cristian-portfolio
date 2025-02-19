@@ -49,6 +49,7 @@ export type PageSection =
 export interface PageData {
     slug: string;
     id: string;
+    cms_domain?: string;
     page_builder: PageSection[];
 }
 
@@ -85,6 +86,8 @@ export interface Project {
     tags: Tag[];
     image: string;
     link: string;
+    cms_domain?: string;
+    more?: string;
 }
 
 export interface Tag {
@@ -95,6 +98,7 @@ export interface Tag {
 export interface ProjectsSection extends BaseSection, LocalizedButtonLabel {
     type: 'projects_section';
     title?: string;
+    cms_domain?: string;
     button_link?: string;
     projects: Project[];
 }
