@@ -150,3 +150,23 @@ export interface FunFactsSection extends BaseSection, LocalizedContent {
     type: 'fun_facts_section';
     facts: Fact[];
 }
+
+//////////////////
+export interface Author {
+    id: string;
+    name: string;
+    email: string;
+    api_url: string;
+}
+
+export interface Blog {
+    id: string;
+    title: string;
+    slug: string;
+    content: string;
+    updated_at: string;
+    hero_image: Image;
+    blog_category: { slug: string, title: string }[];
+    blog_tag: { slug: string, title: string }[];
+    author: Author[]; // Update to reflect the array structure
+}
