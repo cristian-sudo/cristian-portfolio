@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Fira_Sans, Fira_Mono  } from "next/font/google";
-import Navbar from './components/Navbar';
+import Navbar from './layout/Navbar';
 import "./globals.css";
-import SocialMediaSidebar from "@/app/components/SocialMediaSidebar";
+import SocialMediaSidebar from "@/app/layout/SocialMediaSidebar";
 import {LanguageProvider} from "@/app/context/LanguageContext";
-import Footer from "@/app/components/Footer";
+import Footer from "@/app/layout/Footer";
 
 
 const firaSans = Fira_Sans({

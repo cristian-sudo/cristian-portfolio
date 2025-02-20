@@ -1,7 +1,5 @@
-// page.tsx
 import React from 'react';
-import { ApiResponse } from "@/app/types";
-import BlogsPageClient from "@/app/BlogsPageClient";
+import BlogsPageClient from "@/app/pages/BlogsPageClient";
 
 export const dynamic = 'force-dynamic';
 

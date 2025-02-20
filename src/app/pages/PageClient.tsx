@@ -12,7 +12,7 @@ import {
     QuoteSection,
     SkillsSection
 } from "@/app/types";
-import { HeroBannerSection } from './types';
+import { HeroBannerSection } from '../types';
 import LocalNavigation from "@/app/components/LocalNavigation";
 
 interface ClientPageProps {

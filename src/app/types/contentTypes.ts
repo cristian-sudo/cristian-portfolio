@@ -171,3 +171,7 @@ export interface Blog {
     author: Author[];
     cms_domain?: string;
 }
+
+export interface BlogApiResponse {
+    data: Blog[];
+}

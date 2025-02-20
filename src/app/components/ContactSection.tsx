@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import DiscordIcon from "@/app/components/icons/DiscordIcon";

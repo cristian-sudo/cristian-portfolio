@@ -2,6 +2,7 @@
 import React from 'react';
 import { Blog } from '@/app/types';
 import Image from "next/image";
+import CodeHighlighter from "@/app/components/CodeHighlighter";
 
 const BlogPageClient: React.FC<{ blog: Blog }> = ({ blog }) => {
     const formattedDate = new Date(blog.updated_at).toLocaleDateString('en-GB', {
@@ -43,11 +44,16 @@ const BlogPageClient: React.FC<{ blog: Blog }> = ({ blog }) => {
                 />
             </div>
 
-            <h1 className="text-3xl font-bold my-12 text-center text-accent">{blog.title}</h1>
+            <h1 className="md:text-3xl text-lg text-left font-bold my-12 text-accent">{blog.title}</h1>
 
             <div className="flex flex-col md:flex-row">
-                <div className="flex-1 mt-8 md:mt-0">
-                    <div className="prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: modifyImageUrls(blog.content) }} />
+                <div className="flex-1 mt-8 md:mt-0 max-w-full md:max-w-3xl mx-auto">
+                    <CodeHighlighter className={'max-w-none'}>
+                        <div
+                            className="max-w-none"
+                            dangerouslySetInnerHTML={{ __html: modifyImageUrls(blog.content) }}
+                        />
+                    </CodeHighlighter>
                 </div>
 
                 <aside className="md:w-1/6 md:ml-8 sticky top-0 space-y-8 mt-8 md:mt-0">

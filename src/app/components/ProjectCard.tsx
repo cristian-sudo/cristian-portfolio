@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Project, Tag } from "../types";
 import { useLanguage } from "../context/LanguageContext";
+import CodeHighlighter from "@/app/components/CodeHighlighter";
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const { language } = useLanguage();
@@ -131,7 +132,6 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                             &times;
                         </button>
                         <div className="w-full lg:w-2/3 overflow-y-auto p-6 scrollbar-hide">
-                            {/* Tags section for mobile */}
                             <div className="block lg:hidden mb-4">
                                 <div className="h-[2px] mt-12 mb-3 w-full bg-accent"></div>
                                 <ul className="list-disc list-inside text-gray-400">
@@ -142,13 +142,14 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                 <div className="h-[2px] my-3 w-full bg-accent"></div>
                             </div>
                             {typeof more === 'string' &&
-                                <div
-                                    className="prose prose-invert prose-img:rounded-lg prose-img:shadow-md text-accent"
-                                    dangerouslySetInnerHTML={{ __html: modifyImageUrls(more) }}
-                                ></div>
+                                <CodeHighlighter className={'max-w-none'}>
+                                    <div
+                                        className="max-w-none"
+                                        dangerouslySetInnerHTML={{ __html: modifyImageUrls(more) }}
+                                    />
+                                </CodeHighlighter>
                             }
                         </div>
-                        {/* Tags section for desktop */}
                         <div className="hidden lg:block w-1/3 bg-gray-800 p-4 border-l border-gray-700">
                             <div className="h-[2px] mt-12 mb-3 w-full bg-accent"></div>
                             <ul className="list-disc list-inside text-gray-400">

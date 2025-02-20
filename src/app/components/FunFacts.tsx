@@ -18,7 +18,6 @@ const FunFacts: React.FC<FunFactsSection> = ( section) => {
                     )
                 );
 
-                // Map the responses to the localized title based on the language
                 const fetchedFacts = responses.map((response) => {
                     const titleKey = `${language.toLowerCase()}_title`;
                     return response[titleKey] || response.title;
@@ -30,7 +29,9 @@ const FunFacts: React.FC<FunFactsSection> = ( section) => {
             }
         };
 
-        fetchFacts();
+        fetchFacts().catch(error => {
+            console.error('Error in fetchFacts:', error);
+        });
     }, [section, language]);
 
     const titleKey = `${language.toLowerCase()}_title` as keyof FunFactsSection;

@@ -1,8 +1,9 @@
 "use client";
+
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import GitHubIcon from './icons/GitHubIcon';
-import DiscordIcon from './icons/DiscordIcon';
+import GitHubIcon from '../components/icons/GitHubIcon';
+import DiscordIcon from '../components/icons/DiscordIcon';
 
 interface FooterData {
     discord: string;
@@ -42,7 +43,9 @@ const Footer: React.FC = () => {
             }
         };
 
-        fetchFooterData();
+        fetchFooterData().catch(error => {
+            console.error('Error in fetchFooterData:', error);
+        });
     }, []);
 
     if (!footerData) {

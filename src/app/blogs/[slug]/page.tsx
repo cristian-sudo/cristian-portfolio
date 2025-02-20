@@ -1,8 +1,8 @@
 import React from 'react';
-import { Blog } from '@/app/types';
-import BlogPageClient from "@/app/BlogPageClient";
+import { Blog, BlogApiResponse} from '@/app/types';
+import BlogPageClient from "@/app/pages/BlogPageClient";
 
-type Params = { slug: string };
+type Params = Promise<{ slug: string }>;
 
 interface BlogPageProps {
     params: Params;
@@ -16,7 +16,7 @@ const BlogPage: React.FC<BlogPageProps> = async ({ params }) => {
             cache: 'no-store',
         });
 
-        const apiData = await res.json();
+        const apiData: BlogApiResponse = await res.json();
         const blogData: Blog = apiData.data[0];
         blogData.cms_domain = process.env.NEXT_PUBLIC_BACKEND_DOMAIN;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import PageClient from "@/app/PageClient";
+import PageClient from "@/app/pages/PageClient";
 import { ApiResponse } from "@/app/types";
 
 type Params = Promise<{ slug: string }>;

@@ -1,10 +1,9 @@
-"use client";
+"use client"
 
 import React, { useEffect, useState } from 'react';
-import GitHubIcon from './icons/GitHubIcon';
-import LinkedInIcon from './icons/LinkedInIcon';
+import GitHubIcon from '../components/icons/GitHubIcon';
+import LinkedInIcon from '../components/icons/LinkedInIcon';
 
-// Define the structure of the fetched data
 interface SocialMediaData {
     github: string;
     linkedin: string;
@@ -15,8 +14,6 @@ const SocialMediaSidebar: React.FC = () => {
 
     useEffect(() => {
         const fetchSocialMediaLinks = async () => {
-
-
             try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/globals/social_media_side_banner`);
                 const result = await response.json();
@@ -26,7 +23,9 @@ const SocialMediaSidebar: React.FC = () => {
             }
         };
 
-        fetchSocialMediaLinks();
+        fetchSocialMediaLinks().catch(error => {
+            console.error('Error in fetchSocialMediaLinks:', error);
+        });
     }, []);
 
     if (!socialMediaLinks) {

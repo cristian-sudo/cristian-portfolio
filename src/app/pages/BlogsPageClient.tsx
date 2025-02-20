@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import React, { useState, useEffect } from 'react';
 import { Blog } from "@/app/types";
 import BlogCard from "@/app/components/BlogCard";
@@ -9,12 +8,14 @@ interface BlogsPageClientProps {
 }
 
 const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
-    const [filteredBlogs, setFilteredBlogs] = useState(blogs);
+    const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [sortOrder, setSortOrder] = useState('desc');
     const [currentPage, setCurrentPage] = useState(1);
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
     const blogsPerPage = 6;
 
     const uniqueCategories = Array.from(new Set(blogs.flatMap(blog => blog.blog_category.map(category => category.slug)))).sort();
@@ -35,7 +36,8 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
     }, {} as Record<string, string>);
 
     useEffect(() => {
-        let updatedBlogs = blogs;
+        setLoading(true);
+        let updatedBlogs = [...blogs];
 
         if (searchQuery) {
             updatedBlogs = updatedBlogs.filter(blog =>
@@ -63,11 +65,11 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
         });
 
         setFilteredBlogs(updatedBlogs);
-        setCurrentPage(1); // Reset page to 1 when filters, search, or sort order changes
+        setCurrentPage(1);
+        setLoading(false);
     }, [searchQuery, selectedCategories, selectedTags, sortOrder, blogs]);
 
     useEffect(() => {
-        // Scroll to the top whenever the current page changes
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [currentPage]);
 
@@ -99,6 +101,10 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
         setFilteredBlogs(blogs);
     };
 
+    const toggleMobileFilter = () => {
+        setIsMobileFilterOpen(!isMobileFilterOpen);
+    };
+
     return (
         <div className="max-w-6xl mx-auto p-4 mt-36 mb-16 text-white">
             <div className="flex justify-end items-center mb-8">
@@ -111,7 +117,7 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                             checked={sortOrder === 'asc'}
                             onChange={() => {
                                 setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                                setCurrentPage(1); // Reset page to 1 when sort order changes
+                                setCurrentPage(1);
                             }}
                         />
                         <div className="w-11 h-6 bg-gray-600 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-accent peer dark:bg-gray-700 peer-checked:bg-accent transition-all duration-200 ease-in-out"></div>
@@ -121,8 +127,72 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                 </div>
             </div>
 
-            <div className="flex gap-8">
-                <div className="w-1/4 sticky top-[90px] h-full">
+            <div className="lg:hidden mb-9">
+                <button
+                    onClick={toggleMobileFilter}
+                    className="px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 transition-all duration-200 ease-in-out"
+                >
+                    {isMobileFilterOpen ? 'Hide Filters' : 'Show Filters'}
+                </button>
+            </div>
+
+            {isMobileFilterOpen && (
+                <div className="lg:hidden w-full bg-gray-800 p-4 rounded-md shadow-md mb-4">
+                    <h3 className="font-semibold mb-4 text-accent">Filters</h3>
+                    <div className="flex flex-col gap-4">
+                        <div>
+                            <h4 className="text-accent">Categories</h4>
+                            <ul className="mt-2 list-none">
+                                {uniqueCategories.map(item => (
+                                    <li key={item}>
+                                        <label className="inline-flex items-center mt-2">
+                                            <input
+                                                type="checkbox"
+                                                value={item}
+                                                checked={selectedCategories.includes(item)}
+                                                onChange={() => handleFilterChange(setSelectedCategories, item)}
+                                                className="form-checkbox h-4 w-4 text-accent"
+                                            />
+                                            <span className="ml-2">{categoryTitles[item]}</span>
+                                        </label>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="text-accent">Tags</h4>
+                            <ul className="mt-2 list-none">
+                                {uniqueTags.map(item => (
+                                    <li key={item}>
+                                        <label className="inline-flex items-center mt-2">
+                                            <input
+                                                type="checkbox"
+                                                value={item}
+                                                checked={selectedTags.includes(item)}
+                                                onChange={() => handleFilterChange(setSelectedTags, item)}
+                                                className="form-checkbox h-4 w-4 text-accent"
+                                            />
+                                            <span className="ml-2">{tagTitles[item]}</span>
+                                        </label>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                    {(selectedCategories.length > 0 || selectedTags.length > 0 || searchQuery) && (
+                        <button
+                            onClick={handleResetFilters}
+                            className="mt-4 w-full px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 transition-all duration-200 ease-in-out"
+                        >
+                            Clear Filters
+                        </button>
+                    )}
+                </div>
+            )}
+
+            <div className="flex flex-col lg:flex-row gap-8">
+                <div className="w-full lg:w-1/4 sticky top-[90px] h-full hidden lg:block">
                     <div className="flex items-center mb-9 w-full">
                         <input
                             type="text"
@@ -131,7 +201,7 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                             value={searchQuery}
                             onChange={(e) => {
                                 setSearchQuery(e.target.value);
-                                setCurrentPage(1); // Reset page to 1 when search query changes
+                                setCurrentPage(1);
                             }}
                         />
                         <button className="bg-accent text-white px-3 py-2 rounded-r-md hover:bg-opacity-80 transition-all duration-200 ease-in-out">
@@ -194,32 +264,44 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                     </div>
                 </div>
 
-                <div className="w-3/4">
-                    <div className="grid grid-cols-2 sm:grid-cols-2 gap-8">
-                        {currentBlogs.map(blog => (
-                            <BlogCard key={blog.id} blog={blog} />
-                        ))}
-                    </div>
+                <div className="w-full lg:w-3/4">
+                    {loading ? (
+                        <div className="text-center text-accent mt-8">
+                            Loading...
+                        </div>
+                    ) : filteredBlogs.length === 0 ? (
+                        <div className="text-center text-red-500 mt-8">
+                            No results found. Please try again with different search criteria.
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {currentBlogs.map(blog => (
+                                <BlogCard key={blog.id} blog={blog} />
+                            ))}
+                        </div>
+                    )}
 
-                    <div className="flex justify-between items-center mt-16">
-                        <button
-                            onClick={() => handlePageChange("prev")}
-                            disabled={currentPage === 1}
-                            className="px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 disabled:opacity-50 transition-all duration-200 ease-in-out"
-                        >
-                            Previous
-                        </button>
-                        <span>
-                            Page {currentPage} of {totalPages}
-                        </span>
-                        <button
-                            onClick={() => handlePageChange("next")}
-                            disabled={currentPage === totalPages}
-                            className="px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 disabled:opacity-50 transition-all duration-200 ease-in-out"
-                        >
-                            Next
-                        </button>
-                    </div>
+                    {!loading && (
+                        <div className="flex justify-between items-center mt-16">
+                            <button
+                                onClick={() => handlePageChange("prev")}
+                                disabled={currentPage === 1}
+                                className="px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 disabled:opacity-50 transition-all duration-200 ease-in-out"
+                            >
+                                Previous
+                            </button>
+                            <span>
+                                Page {currentPage} of {totalPages}
+                            </span>
+                            <button
+                                onClick={() => handlePageChange("next")}
+                                disabled={currentPage === totalPages}
+                                className="px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 disabled:opacity-50 transition-all duration-200 ease-in-out"
+                            >
+                                Next
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
