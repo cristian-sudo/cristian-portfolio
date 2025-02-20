@@ -18,7 +18,7 @@ const BlogPage: React.FC<BlogPageProps> = async ({ params }) => {
 
         const apiData = await res.json();
         const blogData: Blog = apiData.data[0];
-        console.log(blogData);
+        blogData.cms_domain = process.env.NEXT_PUBLIC_BACKEND_DOMAIN;
 
         if (!blogData) {
             return <div>Blog not found</div>;

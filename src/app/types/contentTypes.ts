@@ -168,5 +168,6 @@ export interface Blog {
     hero_image: Image;
     blog_category: { slug: string, title: string }[];
     blog_tag: { slug: string, title: string }[];
-    author: Author[]; // Update to reflect the array structure
+    author: Author[];
+    cms_domain?: string;
 }
