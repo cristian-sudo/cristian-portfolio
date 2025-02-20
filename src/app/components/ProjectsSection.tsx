@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import ProjectCard from "./ProjectCard";
@@ -24,7 +22,6 @@ const ProjectsSection: React.FC<{ section: ProjectSectionType }> = ({ section })
             buttonLabel: (section[buttonLabelKey] || section.button_label ) as string
         });
     }, [language, section]);
-
     return (
         <div className="py-12 my-6">
             <div className="container mx-auto px-4 md:px-12">
@@ -35,6 +32,7 @@ const ProjectsSection: React.FC<{ section: ProjectSectionType }> = ({ section })
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {section.projects &&
                         section.projects.map((project) => (
+                            project.cms_domain = section.cms_domain,
                             <ProjectCard key={project.id} project={project} />
                         ))
                     }

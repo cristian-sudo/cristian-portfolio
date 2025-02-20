@@ -1,5 +1,8 @@
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
+
+type ThemeFunction = (path: string) => string;
 
 export default {
   content: [
@@ -30,7 +33,30 @@ export default {
         sans: ["var(--font-fira-sans)", "sans-serif"],
         mono: ["var(--font-fira-mono)", "monospace"],
       },
+      typography: (theme: ThemeFunction) => ({
+        DEFAULT: {
+          css: {
+            color: theme('colors.text'),
+            a: {
+              color: theme('colors.accent'),
+              '&:hover': {
+                color: theme('colors.accent'),
+              },
+            },
+            p: {
+              color: theme('colors.white'),
+            },
+            h2: {
+              color: theme('colors.white'),
+            },
+            blockquote: {
+              color: theme('colors.foreground'),
+              borderLeftColor: theme('colors.primary'),
+            },
+          },
+        },
+      }),
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [tailwindcssAnimate, typography],
 } satisfies Config;

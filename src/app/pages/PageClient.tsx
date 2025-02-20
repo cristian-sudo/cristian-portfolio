@@ -12,7 +12,7 @@ import {
     QuoteSection,
     SkillsSection
 } from "@/app/types";
-import { HeroBannerSection } from './types';
+import { HeroBannerSection } from '../types';
 import LocalNavigation from "@/app/components/LocalNavigation";
 
 interface ClientPageProps {
@@ -60,6 +60,7 @@ const PageClient: React.FC<ClientPageProps> = ({ pageData }) => {
                 } else if (isProjectSection(section)) {
                     const Component = componentMap[section.type];
                     if (Component) {
+                        section.cms_domain = pageData.cms_domain;
                         return <Component key={index} section={section} />;
                     }
                 } else if (isSkillsSection(section)) {

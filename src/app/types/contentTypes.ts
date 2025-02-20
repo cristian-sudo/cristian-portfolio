@@ -49,6 +49,7 @@ export type PageSection =
 export interface PageData {
     slug: string;
     id: string;
+    cms_domain?: string;
     page_builder: PageSection[];
 }
 
@@ -85,6 +86,8 @@ export interface Project {
     tags: Tag[];
     image: string;
     link: string;
+    cms_domain?: string;
+    more?: string;
 }
 
 export interface Tag {
@@ -95,6 +98,7 @@ export interface Tag {
 export interface ProjectsSection extends BaseSection, LocalizedButtonLabel {
     type: 'projects_section';
     title?: string;
+    cms_domain?: string;
     button_link?: string;
     projects: Project[];
 }
@@ -145,4 +149,29 @@ export interface Fact {
 export interface FunFactsSection extends BaseSection, LocalizedContent {
     type: 'fun_facts_section';
     facts: Fact[];
+}
+
+//////////////////
+export interface Author {
+    id: string;
+    name: string;
+    email: string;
+    api_url: string;
+}
+
+export interface Blog {
+    id: string;
+    title: string;
+    slug: string;
+    content: string;
+    updated_at: string;
+    hero_image: Image;
+    blog_category: { slug: string, title: string }[];
+    blog_tag: { slug: string, title: string }[];
+    author: Author[];
+    cms_domain?: string;
+}
+
+export interface BlogApiResponse {
+    data: Blog[];
 }

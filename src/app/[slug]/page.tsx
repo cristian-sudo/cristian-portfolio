@@ -1,5 +1,5 @@
 import React from 'react';
-import PageClient from "@/app/PageClient";
+import PageClient from "@/app/pages/PageClient";
 import { ApiResponse } from "@/app/types";
 
 type Params = Promise<{ slug: string }>;
@@ -18,6 +18,7 @@ const DynamicPage: React.FC<PageProps> = async ({ params }) => {
         const apiData: ApiResponse = await res.json();
 
         const pageData = apiData.data[0];
+        pageData.cms_domain = process.env.NEXT_PUBLIC_BACKEND_DOMAIN;
 
         if (!pageData) {
             return <div>Page not found</div>;

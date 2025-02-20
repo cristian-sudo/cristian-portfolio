@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import { highlightText } from "../utils/textUtils";
@@ -6,19 +5,16 @@ import AnimatedBorderTrail from "@/app/components/animata/container/animated-bor
 import { AboutMeSection as AboutMeSectionType } from "../types";
 import Image from "next/image";
 
-// Utility function to get the localized title
 function getLocalizedTitle(section: AboutMeSectionType, language: string): string {
     const key = `${language}_title`;
     return ((section as unknown) as Record<string, string>)[key] || section.title;
 }
 
-// Utility function to get the localized description
 function getLocalizedDescription(section: AboutMeSectionType, language: string): string {
     const key = `${language}_description`;
     return ((section as unknown) as Record<string, string>)[key] || section.description;
 }
 
-// Utility function to get the localized button label
 function getLocalizedButtonLabel(section: AboutMeSectionType, language: string): string {
     const key = `${language}_button_label`;
     return ((section as unknown) as Record<string, string>)[key] || section.button_label;
@@ -29,7 +25,6 @@ const AboutMeSection: React.FC<AboutMeSectionType> = (section) => {
     const [aboutContent, setAboutContent] = useState<AboutMeSectionType | null>(null);
 
     useEffect(() => {
-        // Simulate fetching data based on language
         const localizedTitle = getLocalizedTitle(section, language.toLowerCase());
         const localizedDescription = getLocalizedDescription(section, language.toLowerCase());
         const localizedButtonLabel = getLocalizedButtonLabel(section, language.toLowerCase());
@@ -56,11 +51,9 @@ const AboutMeSection: React.FC<AboutMeSectionType> = (section) => {
                 </h2>
 
                 <div className="flex flex-col md:flex-row items-center gap-8">
-                    {/* Text Section */}
                     <div className="w-full md:w-1/2 flex flex-col gap-4 text-center md:text-left">
                         <p className="text-lg">{highlightText(aboutContent.description)}</p>
 
-                        {/* Center Button on Mobile, Left on Larger Screens */}
                         <div className="flex justify-center md:justify-start">
                             <AnimatedBorderTrail
                                 className=" bg-zinc-600 hover:bg-zinc-500"
@@ -74,7 +67,6 @@ const AboutMeSection: React.FC<AboutMeSectionType> = (section) => {
                         </div>
                     </div>
 
-                    {/* Image Section */}
                     <div className="w-full md:w-1/2 flex justify-center">
                         <Image
                             src={aboutContent.image.permalink}
