@@ -18,6 +18,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
                     alt={blog.hero_image.alt || blog.title}
                     width={400}
                     height={250}
+                    priority={true}
                     className="w-full h-full object-cover"
                 />
             </div>

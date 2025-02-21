@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Project, Tag } from "../types";
 import { useLanguage } from "../context/LanguageContext";
-import CodeHighlighter from "@/app/components/CodeHighlighter";
+import CopyableCodeBlock from "@/app/components/CopyableCodeBlock";
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const { language } = useLanguage();
@@ -81,6 +81,28 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
         return doc.body.innerHTML;
     };
 
+    const renderContent = (htmlContent: string) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, "text/html");
+        const elements = Array.from(doc.body.childNodes);
+
+        return elements.map((node, index) => {
+            if (node.nodeName === 'CODE') {
+                return (
+                    <CopyableCodeBlock
+                        key={index}
+                        language="javascript"
+                        code={node.textContent || ''}
+                    />
+                );
+            } else if (node instanceof Element) {
+                return <div key={index} className={'prose prose-invert'} dangerouslySetInnerHTML={{ __html: node.outerHTML }} />;
+            } else {
+                return null; // Handle other node types if necessary
+            }
+        });
+    };
+
     return (
         <div className="border border-gray-600 rounded-b-lg overflow-hidden shadow-lg bg-gray-800">
             <div
@@ -142,12 +164,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                 <div className="h-[2px] my-3 w-full bg-accent"></div>
                             </div>
                             {typeof more === 'string' &&
-                                <CodeHighlighter className={'max-w-none'}>
-                                    <div
-                                        className="max-w-none"
-                                        dangerouslySetInnerHTML={{ __html: modifyImageUrls(more) }}
-                                    />
-                                </CodeHighlighter>
+                                renderContent(modifyImageUrls(more))
                             }
                         </div>
                         <div className="hidden lg:block w-1/3 bg-gray-800 p-4 border-l border-gray-700">

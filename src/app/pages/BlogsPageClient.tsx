@@ -127,7 +127,24 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                 </div>
             </div>
 
-            <div className="lg:hidden mb-9">
+            <div className="lg:hidden mb-9 flex flex-col">
+                <div className="flex items-center mb-9 w-full">
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        className="p-2 w-full border border-gray-800 rounded-l-md focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-200 ease-in-out bg-gray-800 text-white"
+                        value={searchQuery}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            setCurrentPage(1);
+                        }}
+                    />
+                    <button className="bg-accent text-white px-3 py-2 rounded-r-md hover:bg-opacity-80 transition-all duration-200 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </div>
                 <button
                     onClick={toggleMobileFilter}
                     className="px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 transition-all duration-200 ease-in-out"

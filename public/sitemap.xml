@@ -1,3 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://cristianplop.com/</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/about</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/contact</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/about-me</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/contacts</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/projects</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/a-beginners-guide-to-react-hooks</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/comparing-vuejs-and-react-which-one-to-choose</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/how-to-build-a-restful-api-with-nodejs-and-express</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/mastering-laravel-eloquent-tips-and-tricks</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/the-future-of-ai-in-web-development</loc>
+  </url>
+</urlset>
