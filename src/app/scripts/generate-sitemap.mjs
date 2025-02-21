@@ -1,28 +1,16 @@
 import fs from 'fs';
 import fetch from 'node-fetch';
 
-interface PageData {
-    slug: string;
-}
-
-interface BlogData {
-    slug: string;
-}
-
-interface ApiResponse<T> {
-    data: T[];
-}
-
 const generateSitemap = async () => {
     const baseUrl = 'https://cristianplop.com';
     try {
         const pagesRes = await fetch('https://cms.cristianplop.com/api/collections/pages/entries');
         if (!pagesRes.ok) throw new Error('Failed to fetch pages');
-        const pagesData = (await pagesRes.json()) as ApiResponse<PageData>;
+        const pagesData = await pagesRes.json();
 
         const blogsRes = await fetch('https://cms.cristianplop.com/api/collections/blogs/entries');
         if (!blogsRes.ok) throw new Error('Failed to fetch blogs');
-        const blogsData = (await blogsRes.json()) as ApiResponse<BlogData>;
+        const blogsData = await blogsRes.json();
 
         let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n`;
         sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
