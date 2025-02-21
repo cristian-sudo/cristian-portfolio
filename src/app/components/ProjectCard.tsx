@@ -98,7 +98,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             } else if (node instanceof Element) {
                 return <div key={index} className={'prose prose-invert'} dangerouslySetInnerHTML={{ __html: node.outerHTML }} />;
             } else {
-                return null; // Handle other node types if necessary
+                return null;
             }
         });
     };

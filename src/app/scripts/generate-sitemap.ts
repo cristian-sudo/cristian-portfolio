@@ -1,15 +1,12 @@
 import fs from 'fs';
 import fetch from 'node-fetch';
 
-// Define interfaces for the expected data structure
 interface PageData {
     slug: string;
-    // Add other properties if needed
 }
 
 interface BlogData {
     slug: string;
-    // Add other properties if needed
 }
 
 interface ApiResponse<T> {
@@ -37,7 +34,6 @@ const generateSitemap = async () => {
             sitemap += `  </url>\n`;
         });
 
-        // Add dynamic pages
         pagesData.data.forEach((page) => {
             if (page.slug !== 'home') {
                 sitemap += `  <url>\n`;
@@ -46,7 +42,6 @@ const generateSitemap = async () => {
             }
         });
 
-        // Add blog pages
         blogsData.data.forEach((blog) => {
             sitemap += `  <url>\n`;
             sitemap += `    <loc>${baseUrl}/blogs/${blog.slug}</loc>\n`;
@@ -55,7 +50,6 @@ const generateSitemap = async () => {
 
         sitemap += `</urlset>`;
 
-        // Write the sitemap to a file
         fs.writeFileSync('public/sitemap.xml', sitemap);
 
         console.log('Sitemap generated successfully.');
