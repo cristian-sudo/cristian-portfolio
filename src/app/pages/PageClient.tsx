@@ -92,7 +92,7 @@ const PageClient: React.FC<ClientPageProps> = ({ pageData }) => {
                 }
                 return null;
             })}
-            {pageData.slug !== 'contact' &&
+            {pageData.slug === 'contacts' &&
                 <Contact />
             }
         </div>
