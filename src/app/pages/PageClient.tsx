@@ -14,6 +14,7 @@ import {
 } from "@/app/types";
 import { HeroBannerSection } from '../types';
 import LocalNavigation from "@/app/components/LocalNavigation";
+import Contact from "@/app/components/Contact";
 
 interface ClientPageProps {
     pageData: PageData;
@@ -45,6 +46,9 @@ const PageClient: React.FC<ClientPageProps> = ({ pageData }) => {
         <div>
             {pageData.slug !== 'home' &&
                 <LocalNavigation routeName={ pageData.slug} />
+            }
+            {pageData.slug !== 'contact' &&
+                <Contact />
             }
             {pageData.page_builder.map((section, index) => {
                 if (isHeroBannerSection(section)) {
