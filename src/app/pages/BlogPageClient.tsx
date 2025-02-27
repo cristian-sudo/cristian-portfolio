@@ -4,6 +4,7 @@ import { Blog } from '@/app/types';
 import Image from 'next/image';
 import parse, { DOMNode, Element as DomElement, HTMLReactParserOptions, Text } from 'html-react-parser';
 import CopyableCodeBlock from '@/app/components/CopyableCodeBlock';
+import Giscus from '@giscus/react';
 
 interface Attribs {
     [key: string]: string;
@@ -121,6 +122,23 @@ const BlogPageClient: React.FC<{ blog: Blog }> = ({ blog }) => {
                         </ul>
                     </div>
                 </aside>
+            </div>
+            <div className={"mt-8 container mx-auto"}>
+                <Giscus
+                    id="comments"
+                    repo="cristian-sudo/cristian-portfolio"
+                    repoId="R_kgDONyVPwg"
+                    category="Announcements"
+                    categoryId="DIC_kwDONyVPws4CnZkF"
+                    mapping="pathname"
+                    term="Let me know what you think about this post!"
+                    reactionsEnabled="1"
+                    emitMetadata="0"
+                    inputPosition="top"
+                    theme="preferred_color_scheme"
+                    lang="en"
+                    loading="lazy"
+                />
             </div>
         </div>
     );
