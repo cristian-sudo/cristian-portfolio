@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Blog } from "@/app/types";
 import BlogCard from "@/app/components/BlogCard";
+import { motion } from "framer-motion";
 
 interface BlogsPageClientProps {
     blogs: Blog[];
@@ -16,6 +17,7 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [isTagsOpen, setIsTagsOpen] = useState(true);
     const blogsPerPage = 6;
 
     const uniqueCategories = Array.from(new Set(blogs.flatMap(blog => blog.blog_category.map(category => category.slug)))).sort();
@@ -160,7 +162,7 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                         <div>
                             <h4 className="text-accent">Categories</h4>
                             <ul className="mt-2 list-none">
-                                {uniqueCategories.map(item => (
+                                {uniqueCategories.map((item) => (
                                     <li key={item}>
                                         <label className="inline-flex items-center mt-2">
                                             <input
@@ -178,33 +180,56 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                         </div>
 
                         <div>
-                            <h4 className="text-accent">Tags</h4>
-                            <ul className="mt-2 list-none">
-                                {uniqueTags.map(item => (
-                                    <li key={item}>
-                                        <label className="inline-flex items-center mt-2">
-                                            <input
-                                                type="checkbox"
-                                                value={item}
-                                                checked={selectedTags.includes(item)}
-                                                onChange={() => handleFilterChange(setSelectedTags, item)}
-                                                className="form-checkbox h-4 w-4 text-accent"
-                                            />
-                                            <span className="ml-2">{tagTitles[item]}</span>
-                                        </label>
-                                    </li>
-                                ))}
-                            </ul>
+                            <button
+                                onClick={() => setIsTagsOpen(!isTagsOpen)}
+                                className="flex items-center justify-between w-full text-accent"
+                            >
+                                <h4>Tags</h4>
+                                <span className={`transition-transform ${isTagsOpen ? "rotate-180" : ""}`}>
+                                    ▼
+                                </span>
+                            </button>
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: isTagsOpen ? "auto" : 0, opacity: isTagsOpen ? 1 : 0 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="overflow-hidden"
+                            >
+                                <ul className="mt-2 list-none max-h-40 overflow-y-auto border p-2 rounded-md">
+                                    {uniqueTags.map((item) => (
+                                        <li key={item}>
+                                            <label className="inline-flex items-center mt-2">
+                                                <input
+                                                    type="checkbox"
+                                                    value={item}
+                                                    checked={selectedTags.includes(item)}
+                                                    onChange={() => handleFilterChange(setSelectedTags, item)}
+                                                    className="form-checkbox h-4 w-4 text-accent"
+                                                />
+                                                <span className="ml-2">{tagTitles[item]}</span>
+                                            </label>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </motion.div>
                         </div>
                     </div>
-                    {(selectedCategories.length > 0 || selectedTags.length > 0 || searchQuery) && (
+                    <div className={'flex flex-row gap-9'}>
+                        {(selectedCategories.length > 0 || selectedTags.length > 0 || searchQuery) && (
+                            <button
+                                onClick={handleResetFilters}
+                                className="mt-4 w-full px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 transition-all duration-200 ease-in-out"
+                            >
+                                Clear Filters
+                            </button>
+                        )}
                         <button
-                            onClick={handleResetFilters}
+                            onClick={toggleMobileFilter}
                             className="mt-4 w-full px-4 py-2 bg-accent text-white rounded-md hover:bg-opacity-80 transition-all duration-200 ease-in-out"
                         >
-                            Clear Filters
+                            Apply
                         </button>
-                    )}
+                    </div>
                 </div>
             )}
 
@@ -251,24 +276,40 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                             </div>
 
                             <div>
-                                <h4 className="text-accent">Tags</h4>
-                                <ul className="mt-2 list-none">
-                                    {uniqueTags.map(item => (
-                                        <li key={item}>
-                                            <label className="inline-flex items-center mt-2">
-                                                <input
-                                                    type="checkbox"
-                                                    value={item}
-                                                    checked={selectedTags.includes(item)}
-                                                    onChange={() => handleFilterChange(setSelectedTags, item)}
-                                                    className="form-checkbox h-4 w-4 text-accent"
-                                                />
-                                                <span className="ml-2">{tagTitles[item]}</span>
-                                            </label>
-                                        </li>
-                                    ))}
-                                </ul>
+                                <button
+                                    onClick={() => setIsTagsOpen(!isTagsOpen)}
+                                    className="flex items-center justify-between w-full text-accent"
+                                >
+                                    <h4 className={'text-accent'}>Tags</h4>
+                                    <span className={`transition-transform ${isTagsOpen ? "rotate-180" : ""}`}>
+                                        ▼
+                                    </span>
+                                </button>
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: isTagsOpen ? "auto" : 0, opacity: isTagsOpen ? 1 : 0 }}
+                                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                                    className="overflow-hidden"
+                                >
+                                    <ul className="mt-2 list-none max-h-40 overflow-y-auto border border-accent p-2 rounded-md">
+                                        {uniqueTags.map((item) => (
+                                            <li key={item}>
+                                                <label className="inline-flex items-center mt-2">
+                                                    <input
+                                                        type="checkbox"
+                                                        value={item}
+                                                        checked={selectedTags.includes(item)}
+                                                        onChange={() => handleFilterChange(setSelectedTags, item)}
+                                                        className="form-checkbox h-4 w-4 text-accent"
+                                                    />
+                                                    <span className="ml-2">{tagTitles[item]}</span>
+                                                </label>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </motion.div>
                             </div>
+
                         </div>
                         {(selectedCategories.length > 0 || selectedTags.length > 0 || searchQuery) && (
                             <button

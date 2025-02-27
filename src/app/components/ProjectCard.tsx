@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Project, Tag } from "../types";
 import { useLanguage } from "../context/LanguageContext";
 import CopyableCodeBlock from "@/app/components/CopyableCodeBlock";
+import { motion } from "framer-motion";
 
 const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const { language } = useLanguage();
@@ -139,13 +140,21 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             </div>
 
             {isModalOpen && (
-                <div
+                <motion.div
                     className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75"
                     onClick={closeModal}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                 >
-                    <div
+                    <motion.div
                         className="bg-gray-900 text-white w-11/12 max-w-4xl h-[70%] rounded-lg overflow-hidden flex flex-col lg:flex-row shadow-lg relative"
                         onClick={(e) => e.stopPropagation()}
+                        initial={{ scale: 0.8 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0.8 }}
+                        transition={{ duration: 0.3 }}
                     >
                         <button
                             onClick={closeModal}
@@ -175,8 +184,8 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                                 ))}
                             </ul>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             )}
         </div>
     );
