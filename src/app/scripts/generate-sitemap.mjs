@@ -4,11 +4,11 @@ import fetch from 'node-fetch';
 const generateSitemap = async () => {
     const baseUrl = 'https://cristianplop.com';
     try {
-        const pagesRes = await fetch('https://cms.cristianplop.com/api/collections/pages/entries');
+        const pagesRes = await fetch('https://cris-portfolio-be-main-c0b4fo.laravel.cloud/api/collections/pages/entries');
         if (!pagesRes.ok) throw new Error('Failed to fetch pages');
         const pagesData = await pagesRes.json();
 
-        const blogsRes = await fetch('https://cms.cristianplop.com/api/collections/blogs/entries');
+        const blogsRes = await fetch('https://cris-portfolio-be-main-c0b4fo.laravel.cloud/api/collections/blogs/entries');
         if (!blogsRes.ok) throw new Error('Failed to fetch blogs');
         const blogsData = await blogsRes.json();
 

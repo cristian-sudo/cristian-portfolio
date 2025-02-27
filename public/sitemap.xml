@@ -13,13 +13,13 @@
     <loc>https://cristianplop.com/about-me</loc>
   </url>
   <url>
+    <loc>https://cristianplop.com/blogs</loc>
+  </url>
+  <url>
     <loc>https://cristianplop.com/contacts</loc>
   </url>
   <url>
     <loc>https://cristianplop.com/projects</loc>
-  </url>
-  <url>
-    <loc>https://cristianplop.com/blogs</loc>
   </url>
   <url>
     <loc>https://cristianplop.com/blogs/a-beginners-guide-to-react-hooks</loc>
@@ -35,5 +35,17 @@
   </url>
   <url>
     <loc>https://cristianplop.com/blogs/the-future-of-ai-in-web-development</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/exploring-the-new-laravel-starter-kits-react-and-livewire</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/laravel-cloud-the-easiest-way-to-deploy-your-laravel-apps-for-free-using-the-sandbox-plan</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/understanding-object-oriented-programming-oop-principles-in-php</loc>
+  </url>
+  <url>
+    <loc>https://cristianplop.com/blogs/understanding-solid-principles-in-php-writing-clean-and-maintainable-code</loc>
   </url>
 </urlset>
