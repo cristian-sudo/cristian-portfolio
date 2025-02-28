@@ -5,6 +5,7 @@ import AnimatedBorderTrail from "@/app/components/animata/container/animated-bor
 import GibberishText from "@/app/components/animata/text/gibberish-text";
 import Image from "next/image";
 import {HeroBannerSection} from "@/app/types";
+import {Vortex} from "@/app/components/ui/vortex";
 
 const HeroBanner: React.FC<HeroBannerSection> = (section) => {
     const { language } = useLanguage();
@@ -29,10 +30,14 @@ const HeroBanner: React.FC<HeroBannerSection> = (section) => {
 
     return (
         <div className="py-16 my-6 mt-28">
+            <Vortex
+                backgroundColor="black"
+                className="flex items-center flex-col justify-center px-2 md:px-10 py-4"
+            >
             <div className="container mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
                 <div className="md:w-1/2 text-center md:text-left flex gap-3 flex-col">
                     <p className="text-lg mb-6">
-                        <GibberishText text={localizedContent.title} className={'text-2xl'}/>
+                        <GibberishText text={localizedContent.title} className={'text-2xl font-bold'}/>
                     </p>
                     <AnimatedBorderTrail
                         className=" bg-zinc-600 hover:bg-zinc-500"
@@ -60,6 +65,7 @@ const HeroBanner: React.FC<HeroBannerSection> = (section) => {
                     </span>
                 </div>
             </div>
+            </Vortex>
         </div>
     );
 };

@@ -47,6 +47,9 @@ const PageClient: React.FC<ClientPageProps> = ({ pageData }) => {
             {pageData.slug !== 'home' &&
                 <LocalNavigation routeName={ pageData.slug} />
             }
+            {pageData.slug === 'contacts' &&
+                <Contact />
+            }
             {pageData.page_builder.map((section, index) => {
                 if (isHeroBannerSection(section)) {
                     const Component = componentMap[section.type];
@@ -92,9 +95,6 @@ const PageClient: React.FC<ClientPageProps> = ({ pageData }) => {
                 }
                 return null;
             })}
-            {pageData.slug === 'contacts' &&
-                <Contact />
-            }
         </div>
     );
 };

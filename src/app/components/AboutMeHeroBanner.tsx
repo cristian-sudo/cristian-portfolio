@@ -23,7 +23,7 @@ const AboutMeHeroBanner: React.FC<AboutMeHeroBannerSection> = (section) => {
                 <div className="flex flex-col md:flex-row items-center">
                     <div className="md:w-full text-center md:text-left flex gap-3 flex-col">
                         <div
-                            className="text-lg mb-6"
+                            className="text-lg mb-6 prose prose-invert max-w-none"
                             dangerouslySetInnerHTML={{ __html: localizedContent.title }}
                         />
                     </div>

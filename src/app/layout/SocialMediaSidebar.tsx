@@ -33,7 +33,7 @@ const SocialMediaSidebar: React.FC = () => {
     }
 
     return (
-        <div className="fixed top-0 left-3 h-full justify-center items-center hidden md:flex">
+        <div className="fixed top-0 left-3 h-full justify-center items-center hidden md:flex z-50">
             <div className="sticky top-0 flex flex-col justify-center items-center space-y-4">
                 <div className="w-1 h-16 bg-white"></div>
                 <a
