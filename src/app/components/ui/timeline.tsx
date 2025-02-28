@@ -5,6 +5,7 @@ import {
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 import {TransformedTimelineEntry} from "@/app/types";
+import {Vortex} from "@/app/components/ui/vortex";
 
 interface TimelineProps {
     data: TransformedTimelineEntry[];
@@ -35,18 +36,23 @@ export const Timeline = ({ data }: TimelineProps) => {
             className="w-full bg-white dark:bg-neutral-950 font-sans md:px-10"
             ref={containerRef}
         >
+            <Vortex
+                backgroundColor="black"
+                className="flex items-center flex-col justify-center px-2 md:px-10 py-4"
+            >
             <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10">
                 {data.length > 0 && (
                     <>
-                        <h2 className="text-lg md:text-4xl mb-4 text-black dark:text-white max-w-4xl">
+                        <h2 className="text-lg md:text-4xl mb-4 text-black dark:text-white font-bold max-w-4xl">
                             {data[0].title || 'Default Title'}
                         </h2>
-                        <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-sm">
+                        <p className="text-neutral-700 dark:text-neutral-300 font-bold text-sm md:text-base max-w-sm">
                             {data[0].subtitle || 'Default Subtitle'}
                         </p>
                     </>
                 )}
             </div>
+            </Vortex>
 
             <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
                 {data.map((item, index) => (
@@ -67,9 +73,6 @@ export const Timeline = ({ data }: TimelineProps) => {
                         </div>
 
                         <div className="relative pl-20 pr-4 md:pl-4 w-full">
-                            <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500 dark:text-neutral-500">
-                                {item.year}
-                            </h3>
                             {item.content}
                         </div>
                     </motion.div>
