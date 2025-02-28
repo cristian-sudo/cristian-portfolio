@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 import DiscordIcon from "@/app/components/icons/DiscordIcon";
-import EmailIcon from "@/app/components/icons/EmailIcon";
 import { ContactSection as ContactSectionType } from "../types";
 
 function getLocalizedTitle(section: ContactSectionType, language: string): string {
@@ -56,10 +55,6 @@ const ContactSection: React.FC<ContactSectionType> = (section) => {
                         <div className="flex items-center gap-3">
                             <DiscordIcon />
                             <span>{contactInfo.discord}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <EmailIcon />
-                            <span>{contactInfo.email}</span>
                         </div>
                     </div>
                 </div>

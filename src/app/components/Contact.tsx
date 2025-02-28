@@ -103,7 +103,7 @@ export default function Contact() {
         if (isSubmitted) {
             const timer = setTimeout(() => {
                 setShowComponent(false);
-            }, 2000); // 2 seconds
+            }, 2000);
             return () => clearTimeout(timer);
         }
     }, [isSubmitted]);
