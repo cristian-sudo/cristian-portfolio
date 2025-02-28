@@ -94,7 +94,7 @@ const Navbar: React.FC = () => {
         <nav
             className={`fixed py-2 top-0 left-0 right-0 transition-transform duration-300 ${
                 showNavbar ? 'translate-y-0' : '-translate-y-full'
-            } ${hasScrolled ? 'bg-black' : 'bg-transparent'} z-50 shadow-md`}
+            } ${hasScrolled ? 'bg-black' : 'bg-black'} z-50 shadow-md`}
         >
             <div className="container mx-auto px-4 flex justify-between items-center py-3">
                 <div className="text-2xl font-bold">
