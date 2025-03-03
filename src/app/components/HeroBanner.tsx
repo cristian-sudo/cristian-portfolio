@@ -37,7 +37,7 @@ const HeroBanner: React.FC<HeroBannerSection> = (section) => {
             <div className="container mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
                 <div className="md:w-1/2 text-center md:text-left flex gap-3 flex-col">
                     <p className="text-lg mb-6">
-                        <GibberishText text={localizedContent.title} className={'text-2xl font-bold break-words whitespace-normal'}/>
+                        <GibberishText text={localizedContent.title} className={'text-2xl text-white font-bold break-words whitespace-normal'}/>
                     </p>
                     <AnimatedBorderTrail
                         className=" bg-zinc-600 hover:bg-zinc-500"

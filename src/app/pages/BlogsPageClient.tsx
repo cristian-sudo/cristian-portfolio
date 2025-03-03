@@ -122,7 +122,7 @@ const BlogsPageClient: React.FC<BlogsPageClientProps> = ({ blogs }) => {
                                 setCurrentPage(1);
                             }}
                         />
-                        <div className="w-11 h-6 bg-gray-600 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-accent peer dark:bg-gray-700 peer-checked:bg-accent transition-all duration-200 ease-in-out"></div>
+                        <div className="w-11 h-6 bg-gray-600 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-accent peer peer-checked:bg-accent transition-all duration-200 ease-in-out"></div>
                         <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out transform peer-checked:translate-x-5"></span>
                     </label>
                     <span className="ml-3 text-sm font-medium">{sortOrder === 'asc' ? 'Oldest First' : 'Newest First'}</span>
