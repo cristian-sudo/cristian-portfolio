@@ -31,7 +31,7 @@ const CvPageClient = ({ data, domain = "", heroSection }: CvPageClientProps) => 
                             className="text-neutral-200 md:text-2xl text-lg font-normal mb-8 prose prose-invert"
                             dangerouslySetInnerHTML={{ __html: content as string }}
                         />
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {entry.images.map(image => (
                                 <Image
                                     key={image.id}
