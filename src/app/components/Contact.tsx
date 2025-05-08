@@ -17,6 +17,10 @@ type FormData = {
     gdprConsent: boolean;
 };
 
+type FormErrors = {
+    [K in keyof FormData]?: string;
+};
+
 export default function Contact() {
     const [formType, setFormType] = useState("general");
     const [formData, setFormData] = useState<FormData>({
@@ -33,13 +37,13 @@ export default function Contact() {
         timeConstraints: "",
         gdprConsent: false,
     });
-    const [errors, setErrors] = useState<Partial<FormData>>({});
+    const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [showComponent, setShowComponent] = useState(true);
 
     const validate = () => {
-        const newErrors: Partial<FormData> = {};
+        const newErrors: FormErrors = {};
         if (!formData.name) newErrors.name = "Name is required";
         if (!formData.email) newErrors.email = "Email is required";
         if (formType === "general" && !formData.message) newErrors.message = "Message is required";

@@ -62,7 +62,7 @@ export default function PrivacyPolicy() {
           <ul className="list-disc pl-6 mb-4">
             <li>Right to access your personal data</li>
             <li>Right to rectification of inaccurate data</li>
-            <li>Right to erasure ("right to be forgotten")</li>
+            <li>Right to erasure (&quot;right to be forgotten&quot;)</li>
             <li>Right to restrict processing</li>
             <li>Right to data portability</li>
             <li>Right to object to processing</li>
@@ -90,7 +90,7 @@ export default function PrivacyPolicy() {
           <h2 className="text-2xl font-semibold mb-4">7. Changes to This Policy</h2>
           <p className="mb-4">
             We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy 
-            on this page and updating the "Last Updated" date.
+            on this page and updating the &quot;Last Updated&quot; date.
           </p>
           <p className="text-sm text-gray-400">
             Last Updated: {new Date().toLocaleDateString()}
