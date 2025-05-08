@@ -1,7 +1,6 @@
 "use client";
 
 import { useLanguage } from '../context/LanguageContext';
-import { Language } from '../types';
 
 const privacyContent = {
   EN: {
