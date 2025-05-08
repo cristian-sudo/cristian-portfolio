@@ -14,6 +14,7 @@ type FormData = {
     description: string;
     budget: string;
     timeConstraints: string;
+    gdprConsent: boolean;
 };
 
 export default function Contact() {
@@ -30,6 +31,7 @@ export default function Contact() {
         description: "",
         budget: "",
         timeConstraints: "",
+        gdprConsent: false,
     });
     const [errors, setErrors] = useState<Partial<FormData>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,6 +54,7 @@ export default function Contact() {
             if (!formData.budget) newErrors.budget = "Budget is required";
             if (!formData.timeConstraints) newErrors.timeConstraints = "Time constraints are required";
         }
+        if (!formData.gdprConsent) newErrors.gdprConsent = "You must consent to the privacy policy";
         return newErrors;
     };
 
@@ -350,6 +353,33 @@ export default function Contact() {
                             </div>
                         </>
                     )}
+
+                    <div className="mt-4">
+                        <label className="flex items-start space-x-2">
+                            <input
+                                type="checkbox"
+                                name="gdprConsent"
+                                checked={formData.gdprConsent}
+                                onChange={(e) => setFormData({ ...formData, gdprConsent: e.target.checked })}
+                                className="mt-1"
+                            />
+                            <span className="text-sm">
+                                I consent to the processing of my personal data in accordance with the{' '}
+                                <a 
+                                    href="/privacy" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-accent hover:underline"
+                                >
+                                    Privacy Policy
+                                </a>
+                                . I understand that my data will be processed by Web3Forms and stored securely.
+                            </span>
+                        </label>
+                        {errors.gdprConsent && (
+                            <p className="text-red-500 text-sm mt-1">{errors.gdprConsent}</p>
+                        )}
+                    </div>
 
                     <button
                         type="submit"
