@@ -98,7 +98,13 @@ const Navbar: React.FC = () => {
         >
             <div className="container mx-auto px-4 flex justify-between items-center py-3">
                 <div className="text-2xl font-bold">
-                    <Link href="/" onClick={() => setMenuOpen(!menuOpen)}>
+                    <Link 
+                        href="/" 
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setMenuOpen(false);
+                        }}
+                    >
                         <span className="text-accent">$</span>cristian_plop
                     </Link>
                 </div>

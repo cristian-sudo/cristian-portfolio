@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { highlightText } from '../utils/textUtils';
@@ -35,16 +37,16 @@ const HeroBanner: React.FC<HeroBannerSection> = (section) => {
                 className="flex items-center flex-col justify-center px-2 md:px-10 py-4"
             >
             <div className="container mx-auto flex flex-col md:flex-row items-center px-6 md:px-12">
-                <div className="md:w-1/2 text-center md:text-left flex gap-3 flex-col">
+                <div className="md:w-1/2 text-center md:text-left flex gap-3 flex-col items-center md:items-start">
                     <p className="text-lg mb-6">
                         <GibberishText text={localizedContent.title} className={'text-2xl text-white font-bold break-words whitespace-normal'}/>
                     </p>
                     <AnimatedBorderTrail
-                        className=" bg-zinc-600 hover:bg-zinc-500"
-                        contentClassName=" bg-zinc-800"
+                        className="bg-zinc-600 hover:bg-zinc-500"
+                        contentClassName="bg-zinc-800"
                         trailColor="red"
                     >
-                        <a href={section.link} className=" px-3 text-2xl">
+                        <a href={section.link} className="px-3 text-2xl">
                             {highlightText(localizedContent.buttonLabel)} →
                         </a>
                     </AnimatedBorderTrail>
