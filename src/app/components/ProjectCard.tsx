@@ -9,6 +9,21 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
     const [projectDetails, setProjectDetails] = useState<Project | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const resolveProjectLink = (value: unknown): string => {
+        if (typeof value === "string") {
+            return value;
+        }
+
+        if (value && typeof value === "object") {
+            const candidate = value as { link?: unknown; url?: unknown; permalink?: unknown };
+            if (typeof candidate.link === "string") return candidate.link;
+            if (typeof candidate.url === "string") return candidate.url;
+            if (typeof candidate.permalink === "string") return candidate.permalink;
+        }
+
+        return "";
+    };
+
     useEffect(() => {
         const fetchLocalizedData = async () => {
             try {
@@ -32,7 +47,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
                         title: tag.title,
                     })),
                     image: data.image[0].permalink,
-                    link: data.link,
+                    link: resolveProjectLink(data.link) || project.link,
                 };
 
                 setProjectDetails(localizedProject);
